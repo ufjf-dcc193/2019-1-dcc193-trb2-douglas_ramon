@@ -1,9 +1,11 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,12 +17,13 @@ public class Trabalho {
     private String titulo;
     private String descricao;
     private String url;
-    private String areaConhecimento;
+    @OneToOne(fetch = FetchType.EAGER)
+    private AreaConhecimento areaConhecimento;
 
     public Trabalho() {
     }
 
-    public Trabalho(String titulo, String descricao, String url, String areaConhecimento) {
+    public Trabalho(String titulo, String descricao, String url, AreaConhecimento areaConhecimento) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.url = url;
@@ -65,11 +68,11 @@ public class Trabalho {
         this.url = url;
     }
 
-    public String getAreaConhecimento() {
+    public AreaConhecimento getAreaConhecimento() {
         return areaConhecimento;
     }
 
-    public void setAreaConhecimento(String areaConhecimento) {
+    public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }
 

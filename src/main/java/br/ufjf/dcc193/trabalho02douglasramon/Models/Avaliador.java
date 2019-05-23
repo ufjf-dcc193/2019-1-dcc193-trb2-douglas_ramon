@@ -1,9 +1,7 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,8 +19,8 @@ public class Avaliador {
     private String nome;
     private String email;
     private int codigo;
-    // @OneToMany(fetch = FetchType.EAGER)
-    // private List<String> areaConhecimento;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<AreaConhecimento> areaConhecimento;
 
     public Avaliador() {
     }
@@ -79,19 +77,18 @@ public class Avaliador {
         this.codigo = codigo;
     }
 
-    // public List<String> getAreaConhecimento() {
-    // return areaConhecimento;
-    // }
+    public List<AreaConhecimento> getAreaConhecimento() {
+        return areaConhecimento;
+    }
 
-    // public void setAreaConhecimento(List<String> areaConhecimento) {
-    // this.areaConhecimento = areaConhecimento;
-    // }
+    public void setAreaConhecimento(List<AreaConhecimento> areaConhecimento) {
+        this.areaConhecimento = areaConhecimento;
+    }
 
-    // @Override
-    // public String toString() {
-    // return "Avaliador{" + "nome=" + nome + ", email=" + email + ", codigo=" +
-    // codigo + ", areaConhecimento="
-    // + areaConhecimento + '}';
-    // }
+    @Override
+    public String toString() {
+        return "Avaliador{" + "nome=" + nome + ", email=" + email + ", codigo=" + codigo + ", areaConhecimento="
+                + areaConhecimento + '}';
+    }
 
 }
