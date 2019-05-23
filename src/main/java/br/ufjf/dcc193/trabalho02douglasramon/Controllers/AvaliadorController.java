@@ -10,7 +10,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 
-
 @Controller
 public class AvaliadorController {
     @Autowired
@@ -22,7 +21,7 @@ public class AvaliadorController {
         return "avaliador/avaliador";
     }
 
-    @RequestMapping("avaliador_form.html")
+    @RequestMapping("avaliadorForm.html")
     public String avaliadorForm(Model model) {
         return "avaliador/avaliadorForm";
     }
@@ -46,6 +45,5 @@ public class AvaliadorController {
         avaliadores.save(avaliador);
         return new RedirectView("avaliador.html");
     }
-
 
 }

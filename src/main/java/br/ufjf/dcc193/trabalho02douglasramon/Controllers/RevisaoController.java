@@ -10,9 +10,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
 
-
 @Controller
-public class revisaoController {
+public class RevisaoController {
     @Autowired
     RevisaoRepository revisoes;
 
@@ -46,6 +45,5 @@ public class revisaoController {
         revisoes.save(revisao);
         return new RedirectView("revisao.html");
     }
-
 
 }

@@ -1,7 +1,22 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Models;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "revisao")
 public class Revisao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @OneToOne(fetch = FetchType.EAGER)
     private Avaliador avaliador;
+    @OneToOne(fetch = FetchType.EAGER)
     private Trabalho trabalho;
     private int nota;
     private String descricao;
@@ -21,8 +36,22 @@ public class Revisao {
     public Revisao(Avaliador avaliador, Trabalho trabalho, int nota, String opcoes) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
-        this.nota = nota;        
+        this.nota = nota;
         this.opcoes = opcoes;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Avaliador getAvaliador() {
@@ -67,9 +96,8 @@ public class Revisao {
 
     @Override
     public String toString() {
-        return "Revisao{" + "avaliador=" + avaliador + ", trabalho=" + trabalho + ", nota=" + nota + ", descricao=" + descricao + ", opcoes=" + opcoes + '}';
+        return "Revisao{" + "avaliador=" + avaliador + ", trabalho=" + trabalho + ", nota=" + nota + ", descricao="
+                + descricao + ", opcoes=" + opcoes + '}';
     }
-    
-    
-    
+
 }

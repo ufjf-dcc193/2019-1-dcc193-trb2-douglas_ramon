@@ -10,9 +10,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
-
 @Controller
-public class trabalhoController {
+public class TrabalhoController {
     @Autowired
     TrabalhoRepository trabalhos;
 
@@ -33,19 +32,18 @@ public class trabalhoController {
         return new RedirectView("trabalho.html");
     }
 
-    @RequestMapping("trabalhoEditar.html")
-    public ModelAndView carregar_trabalho_editar(Trabalho trabalho) {
+    @RequestMapping("carregarTrabalhoEditar.html")
+    public ModelAndView carregarTrabalhoEditar(Trabalho trabalho) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
-        mv.setViewName("trabalho/trabalho_editar");
+        mv.setViewName("trabalho/carregarTrabalhoEditar");
         return mv;
     }
 
-    @RequestMapping("trabalho_alterar.html")
+    @RequestMapping("trabalhoAlterar.html")
     public RedirectView alterar(Trabalho trabalho) {
         trabalhos.save(trabalho);
         return new RedirectView("trabalho.html");
     }
-
 
 }

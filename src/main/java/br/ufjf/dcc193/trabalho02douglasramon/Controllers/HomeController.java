@@ -1,4 +1,4 @@
-package br.ufjf.dcc193.trabalho02douglasramon;
+package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
