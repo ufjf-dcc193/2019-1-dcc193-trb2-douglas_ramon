@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
-import br.ufjf.dcc193.trabalho02douglasramon.Models.Sede;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 
