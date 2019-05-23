@@ -13,14 +13,14 @@ import javax.persistence.Table;
 public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long id;    
+    private int nota;
+    private String descricao;
+    private String opcoes;
     @OneToOne(fetch = FetchType.EAGER)
     private Avaliador avaliador;
     @OneToOne(fetch = FetchType.EAGER)
     private Trabalho trabalho;
-    private int nota;
-    private String descricao;
-    private String opcoes;
 
     public Revisao() {
     }
