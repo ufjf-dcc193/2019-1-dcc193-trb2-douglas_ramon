@@ -21,9 +21,9 @@ public class TrabalhoController {
         return "trabalho/trabalho";
     }
 
-    @RequestMapping("trabalhoForm.html")
-    public String trabalhoForm(Model model) {
-        return "trabalho/trabalhoForm";
+    @RequestMapping("formTrabalho.html")
+    public String formTrabalho(Model model) {
+        return "trabalho/formTrabalho";
     }
 
     @RequestMapping("cadastrarTrabalho.html")
@@ -32,18 +32,13 @@ public class TrabalhoController {
         return new RedirectView("trabalho.html");
     }
 
-    @RequestMapping("carregarTrabalhoEditar.html")
-    public ModelAndView carregarTrabalhoEditar(Trabalho trabalho) {
+    @RequestMapping("editarTrabalho.html")
+    public ModelAndView editarTrabalho(Trabalho trabalho) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
-        mv.setViewName("trabalho/carregarTrabalhoEditar");
+        mv.setViewName("trabalho/editarTrabalho");
         return mv;
     }
 
-    @RequestMapping("trabalhoAlterar.html")
-    public RedirectView alterar(Trabalho trabalho) {
-        trabalhos.save(trabalho);
-        return new RedirectView("trabalho.html");
-    }
 
 }

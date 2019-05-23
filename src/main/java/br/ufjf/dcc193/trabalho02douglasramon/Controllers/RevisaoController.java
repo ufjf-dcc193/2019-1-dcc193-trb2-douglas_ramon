@@ -21,9 +21,9 @@ public class RevisaoController {
         return "revisao/revisao";
     }
 
-    @RequestMapping("revisao_form.html")
-    public String revisaoForm(Model model) {
-        return "revisao/revisaoForm";
+    @RequestMapping("formRevisao.html")
+    public String formRevisao(Model model) {
+        return "revisao/formRevisao";
     }
 
     @RequestMapping("cadastrarRevisao.html")
@@ -32,18 +32,14 @@ public class RevisaoController {
         return new RedirectView("revisao.html");
     }
 
-    @RequestMapping("carregarRevisaoEditar.html")
-    public ModelAndView carregarRevisaoEditar(Revisao revisao) {
+    @RequestMapping("editarRevisao.html")
+    public ModelAndView editarRevisao(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("revisao", revisoes.getOne(revisao.getId()));
-        mv.setViewName("revisao/carregarRevisaoEditar");
+        mv.setViewName("revisao/editarRevisao");
         return mv;
     }
 
-    @RequestMapping("revisaoAlterar.html")
-    public RedirectView alterar(Revisao revisao) {
-        revisoes.save(revisao);
-        return new RedirectView("revisao.html");
-    }
+
 
 }

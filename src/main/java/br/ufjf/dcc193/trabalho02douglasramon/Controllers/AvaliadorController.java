@@ -21,9 +21,8 @@ public class AvaliadorController {
         return "avaliador/avaliador";
     }
 
-    @RequestMapping("avaliadorForm.html")
-    public String avaliadorForm(Model model) {
-        return "avaliador/avaliadorForm";
+    public String formAvaliador(Model model) {
+        return "avaliador/formAvaliador";
     }
 
     @RequestMapping("cadastrarAvaliador.html")
@@ -32,18 +31,13 @@ public class AvaliadorController {
         return new RedirectView("avaliador.html");
     }
 
-    @RequestMapping("carregarAvaliadorEditar.html")
-    public ModelAndView carregarAvaliadorEditar(Avaliador avaliador) {
+    @RequestMapping("editarAvaliador.html")
+    public ModelAndView editarAvaliador(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", avaliadores.getOne(avaliador.getId()));
-        mv.setViewName("avaliador/carregarAvaliadorEditar");
+        mv.setViewName("avaliador/editarAvaliador");
         return mv;
     }
 
-    @RequestMapping("avaliadorAlterar.html")
-    public RedirectView alterar(Avaliador avaliador) {
-        avaliadores.save(avaliador);
-        return new RedirectView("avaliador.html");
-    }
 
 }
