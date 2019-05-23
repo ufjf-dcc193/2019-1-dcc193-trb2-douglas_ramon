@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;    
+    private Long id;
     private int nota;
     private String descricao;
     private String opcoes;
@@ -25,7 +25,7 @@ public class Revisao {
     public Revisao() {
     }
 
-    public Revisao(Avaliador avaliador, Trabalho trabalho, int nota, String descricao, String opcoes) {
+    public Revisao(int nota, String descricao, String opcoes, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
         this.nota = nota;
@@ -33,7 +33,7 @@ public class Revisao {
         this.opcoes = opcoes;
     }
 
-    public Revisao(Avaliador avaliador, Trabalho trabalho, int nota, String opcoes) {
+    public Revisao(int nota, String opcoes, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
         this.nota = nota;

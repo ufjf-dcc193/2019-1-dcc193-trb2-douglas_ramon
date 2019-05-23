@@ -31,13 +31,12 @@ public class Avaliador {
         this.codigo = codigo;
     }
 
-    // public Avaliador(String nome, String email, int codigo, List<String>
-    // areaConhecimento) {
-    // this.nome = nome;
-    // this.email = email;
-    // this.codigo = codigo;
-    // this.areaConhecimento = areaConhecimento;
-    // }
+    public Avaliador(String nome, String email, int codigo, List<AreaConhecimento> areaConhecimento) {
+        this.nome = nome;
+        this.email = email;
+        this.codigo = codigo;
+        this.areaConhecimento = areaConhecimento;
+    }
 
     /**
      * @return the id
