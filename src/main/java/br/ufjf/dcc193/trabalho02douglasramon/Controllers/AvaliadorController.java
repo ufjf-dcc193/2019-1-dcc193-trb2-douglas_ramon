@@ -10,7 +10,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Sede;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
-import br.ufjf.dcc193.trabalho02douglasramon.Persistence.SedeRepository;
 
 
 @Controller
@@ -20,7 +19,7 @@ public class AvaliadorController {
 
     @RequestMapping("avaliador.html")
     public String avaliador(Model model) {
-        model.addAttribute("avaliador", avaliador.findAll());
+        model.addAttribute("avaliador", avaliadores.findAll());
         return "avaliador/avaliador";
     }
 
@@ -36,7 +35,7 @@ public class AvaliadorController {
     }
 
     @RequestMapping("avaliador_editar.html")
-    public ModelAndView carrega_sede_editar(Avaliador avaliador) {
+    public ModelAndView carregar_sede_editar(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", avaliadores.getOne(avaliador.getId()));
         mv.setViewName("avaliador/avaliador_editar");
