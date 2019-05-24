@@ -50,10 +50,6 @@ public class RevisaoController {
         return mv;
     }
 
-    /**
-     * @param trabalho
-     * @return true or false
-     */
     @RequestMapping("realizarRevisao.html")
     public ModelAndView realizarRevisao(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
@@ -62,10 +58,6 @@ public class RevisaoController {
         return mv;
     }
 
-    /**
-     * @param trabalho
-     * @return true or false
-     */
     @RequestMapping("revisarDepois.html")
     public ModelAndView revisarDepois(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
@@ -76,10 +68,6 @@ public class RevisaoController {
         return mv;
     }
 
-    /**
-     * @param trabalho
-     * @return true or false
-     */
     @RequestMapping("revisarAgora.html")
     public ModelAndView revisarAgora(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
@@ -90,10 +78,6 @@ public class RevisaoController {
         return mv;
     }
 
-    /**
-     * @param trabalho
-     * @return true or false
-     */
     @RequestMapping("pular.html")
     public ModelAndView pular(Revisao revisao) {
         ModelAndView mv = new ModelAndView();

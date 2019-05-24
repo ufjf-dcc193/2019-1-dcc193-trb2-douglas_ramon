@@ -52,26 +52,16 @@ public class AvaliadorController {
         return mv;
     }
 
-    /**
-     * @param avaliador
-     * @return true or false
-     */
     public Boolean identificacaoSistema(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
-
         if (aux != null) {
             if (aux.getEmail() == avaliador.getEmail() && aux.getCodigo() == avaliador.getCodigo()) {
                 return true;
             }
         }
-
         return false;
     }
 
-    /**
-     * @param avaliador
-     * @return areaConhecimento or null
-     */
     public List<AreaConhecimento> areaConhecimentoAvaliador(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         if (aux != null) {
@@ -80,14 +70,10 @@ public class AvaliadorController {
         return null;
     }
 
-    /**
-     * @param avaliador
-     * @return listaTrabalhos or null
-     */
-    public List<Trabalho> trabalhosAreaConhecimento(Avaliador avaliador) {
+    public List<Trabalho> listTrabalhosAreaConhecimento(Avaliador avaliador) {
+        List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         Trabalho trabalho;
-        List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
 
         if (aux != null) {
             for (int i = 0; i < aux.getAreaConhecimento().size(); i++) {
