@@ -87,4 +87,15 @@ public class RevisaoController {
         mv.setViewName("trabalho/pular");
         return mv;
     }
+
+    @RequestMapping("listarRevisoesAvaliador.html")
+    public ModelAndView listarRevisoesAvaliador(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        if (revisao.getStatus() == "Avaliado") {
+            mv.addObject("revisao", revisoes.getOne(revisao.getId()));
+        }
+        mv.setViewName("trabalho/listarRevisoesAvaliador");
+        return mv;
+    }
+
 }
