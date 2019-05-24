@@ -44,4 +44,23 @@ public class AvaliadorController {
         return mv;
     }
 
+    /**
+     * Requisito 6. Crie um conjunto de telas para o Avaliador se identificar no
+     * sistema com seu e-mail ecódigo de acesso;
+     * 
+     * @param avaliador
+     * @return true or false
+     */
+    public Boolean identificacaoSistema(Avaliador avaliador) {
+        Avaliador aux = avaliadores.getOne(avaliador.getId());
+
+        if (aux != null) {
+            if (aux.getEmail() == avaliador.getEmail() && aux.getCodigo() == avaliador.getCodigo()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

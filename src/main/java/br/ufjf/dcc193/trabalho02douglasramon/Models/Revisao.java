@@ -16,7 +16,7 @@ public class Revisao {
     private Long id;
     private int nota;
     private String descricao;
-    private String opcoes;
+    private String status;
     @OneToOne(fetch = FetchType.EAGER)
     private Avaliador avaliador;
     @OneToOne(fetch = FetchType.EAGER)
@@ -25,19 +25,19 @@ public class Revisao {
     public Revisao() {
     }
 
-    public Revisao(int nota, String descricao, String opcoes, Trabalho trabalho, Avaliador avaliador) {
+    public Revisao(int nota, String descricao, String status, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
         this.nota = nota;
         this.descricao = descricao;
-        this.opcoes = opcoes;
+        this.status = status;
     }
 
-    public Revisao(int nota, String opcoes, Trabalho trabalho, Avaliador avaliador) {
+    public Revisao(int nota, String status, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
         this.nota = nota;
-        this.opcoes = opcoes;
+        this.status = status;
     }
 
     /**
@@ -86,18 +86,18 @@ public class Revisao {
         this.descricao = descricao;
     }
 
-    public String getOpcoes() {
-        return opcoes;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOpcoes(String opcoes) {
-        this.opcoes = opcoes;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Revisao{" + "avaliador=" + avaliador + ", trabalho=" + trabalho + ", nota=" + nota + ", descricao="
-                + descricao + ", opcoes=" + opcoes + '}';
+                + descricao + ", status=" + status + '}';
     }
 
 }
