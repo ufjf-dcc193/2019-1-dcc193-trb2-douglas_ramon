@@ -52,12 +52,6 @@ public class RevisaoController {
     }
 
     /**
-     * Ao selecionar um trabalho, exiba os detalhes do mesmo com os dados para
-     * realizar uma revisão e:a.Um botão “Revisar Depois” salva os dados preenchidos
-     * e marca a revisãocomo “a fazer”;b.Um botão “Revisar Agora” salva os dados
-     * preenchidos e marca a revisãocomo “avaliado”;c.Um botão “Pular” salva os
-     * dados preenchidos com valores vazios e status“impedido”;
-     * 
      * @param trabalho
      * @return true or false
      */
@@ -70,12 +64,6 @@ public class RevisaoController {
     }
 
     /**
-     * Ao selecionar um trabalho, exiba os detalhes do mesmo com os dados para
-     * realizar uma revisão e:a.Um botão “Revisar Depois” salva os dados preenchidos
-     * e marca a revisãocomo “a fazer”;b.Um botão “Revisar Agora” salva os dados
-     * preenchidos e marca a revisãocomo “avaliado”;c.Um botão “Pular” salva os
-     * dados preenchidos com valores vazios e status“impedido”;
-     * 
      * @param trabalho
      * @return true or false
      */
@@ -90,12 +78,6 @@ public class RevisaoController {
     }
 
     /**
-     * Ao selecionar um trabalho, exiba os detalhes do mesmo com os dados para
-     * realizar uma revisão e:a.Um botão “Revisar Depois” salva os dados preenchidos
-     * e marca a revisãocomo “a fazer”;b.Um botão “Revisar Agora” salva os dados
-     * preenchidos e marca a revisãocomo “avaliado”;c.Um botão “Pular” salva os
-     * dados preenchidos com valores vazios e status“impedido”;
-     * 
      * @param trabalho
      * @return true or false
      */
@@ -106,6 +88,20 @@ public class RevisaoController {
         aux.setStatus("Avaliado");
         revisoes.save(aux);
         mv.setViewName("trabalho/revisarAgora");
+        return mv;
+    }
+
+    /**
+     * @param trabalho
+     * @return true or false
+     */
+    @RequestMapping("pular.html")
+    public ModelAndView pular(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        Revisao aux = revisoes.getOne(revisao.getId());
+        aux.setStatus("Impedido");
+        revisoes.save(aux);
+        mv.setViewName("trabalho/pular");
         return mv;
     }
 }
