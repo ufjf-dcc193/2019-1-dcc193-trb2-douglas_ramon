@@ -8,12 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 
 @Controller
 public class AvaliadorController {
     @Autowired
     AvaliadorRepository avaliadores;
+    @Autowired
+    AreaConhecimentoRepository areaConhecimentos;
 
     @RequestMapping("avaliador.html")
     public String avaliador(Model model) {
@@ -22,6 +25,7 @@ public class AvaliadorController {
     }
 
     public String formAvaliador(Model model) {
+        model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
         return "avaliador/formAvaliador";
     }
 
@@ -38,6 +42,5 @@ public class AvaliadorController {
         mv.setViewName("avaliador/editarAvaliador");
         return mv;
     }
-
 
 }

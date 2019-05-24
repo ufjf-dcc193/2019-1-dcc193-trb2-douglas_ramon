@@ -8,12 +8,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 @Controller
 public class RevisaoController {
     @Autowired
     RevisaoRepository revisoes;
+    @Autowired
+    AvaliadorRepository avaliadores;
+    @Autowired
+    TrabalhoRepository trabalhos;
 
     @RequestMapping("revisao.html")
     public String revisao(Model model) {
@@ -23,6 +29,8 @@ public class RevisaoController {
 
     @RequestMapping("formRevisao.html")
     public String formRevisao(Model model) {
+        model.addAttribute("avaliador", avaliadores.findAll());
+        model.addAttribute("trabalho", trabalhos.findAll());
         return "revisao/formRevisao";
     }
 
@@ -39,7 +47,5 @@ public class RevisaoController {
         mv.setViewName("revisao/editarRevisao");
         return mv;
     }
-
-
 
 }

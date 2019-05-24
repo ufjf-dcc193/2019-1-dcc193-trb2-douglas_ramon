@@ -8,12 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 @Controller
 public class TrabalhoController {
     @Autowired
     TrabalhoRepository trabalhos;
+    @Autowired
+    AreaConhecimentoRepository areaConhecimentos;
 
     @RequestMapping("trabalho.html")
     public String trabalho(Model model) {
@@ -23,6 +26,7 @@ public class TrabalhoController {
 
     @RequestMapping("formTrabalho.html")
     public String formTrabalho(Model model) {
+        model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
         return "trabalho/formTrabalho";
     }
 
@@ -39,6 +43,5 @@ public class TrabalhoController {
         mv.setViewName("trabalho/editarTrabalho");
         return mv;
     }
-
 
 }
