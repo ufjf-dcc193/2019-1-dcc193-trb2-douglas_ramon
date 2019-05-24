@@ -98,4 +98,14 @@ public class RevisaoController {
         return mv;
     }
 
+    @RequestMapping("alterarStatusRevisoesAvaliador.html")
+    public ModelAndView alterarStatusRevisoesAvaliador(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        Revisao aux = revisoes.getOne(revisao.getId());
+        aux.setStatus(revisao.getStatus());
+        revisoes.save(aux);
+        mv.setViewName("trabalho/alterarStatusRevisoesAvaliador");
+        return mv;
+    }
+
 }
