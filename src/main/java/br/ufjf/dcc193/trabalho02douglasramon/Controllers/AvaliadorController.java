@@ -1,5 +1,7 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import br.ufjf.dcc193.trabalho02douglasramon.Models.AreaConhecimento;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
@@ -61,6 +64,21 @@ public class AvaliadorController {
         }
 
         return false;
+    }
+
+    /**
+     * Requisito 7. Crie uma tela que lista as áreas de conhecimento que o Avaliador
+     * pode atuar;
+     * 
+     * @param avaliador
+     * @return true or false
+     */
+    public List<AreaConhecimento> areaConhecimentoAvaliador(Avaliador avaliador) {
+        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        if (aux != null) {
+            return aux.getAreaConhecimento();
+        }
+        return null;
     }
 
 }
