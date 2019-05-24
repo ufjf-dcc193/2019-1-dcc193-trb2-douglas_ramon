@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
+import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
@@ -50,4 +51,41 @@ public class RevisaoController {
         return mv;
     }
 
+    /**
+     * Ao selecionar um trabalho, exiba os detalhes do mesmo com os dados para
+     * realizar uma revisão e:a.Um botão “Revisar Depois” salva os dados preenchidos
+     * e marca a revisãocomo “a fazer”;b.Um botão “Revisar Agora” salva os dados
+     * preenchidos e marca a revisãocomo “avaliado”;c.Um botão “Pular” salva os
+     * dados preenchidos com valores vazios e status“impedido”;
+     * 
+     * @param trabalho
+     * @return true or false
+     */
+    @RequestMapping("realizarRevisao.html")
+    public ModelAndView realizarRevisao(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("trabalho", revisoes.getOne(revisao.getTrabalho().getId()));
+        mv.setViewName("trabalho/realizarRevisao");
+        return mv;
+    }
+
+    /**
+     * Ao selecionar um trabalho, exiba os detalhes do mesmo com os dados para
+     * realizar uma revisão e:a.Um botão “Revisar Depois” salva os dados preenchidos
+     * e marca a revisãocomo “a fazer”;b.Um botão “Revisar Agora” salva os dados
+     * preenchidos e marca a revisãocomo “avaliado”;c.Um botão “Pular” salva os
+     * dados preenchidos com valores vazios e status“impedido”;
+     * 
+     * @param trabalho
+     * @return true or false
+     */
+    @RequestMapping("revisarDepois.html")
+    public ModelAndView revisarDepois(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        Revisao aux = revisoes.getOne(revisao.getId());
+        aux.setStatus("A fazer");
+        revisoes.save(aux);
+        mv.setViewName("trabalho/revisarDepois");
+        return mv;
+    }
 }

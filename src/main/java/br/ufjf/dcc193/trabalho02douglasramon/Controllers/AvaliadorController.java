@@ -53,9 +53,6 @@ public class AvaliadorController {
     }
 
     /**
-     * Requisito 6. Crie um conjunto de telas para o Avaliador se identificar no
-     * sistema com seu e-mail ecódigo de acesso;
-     * 
      * @param avaliador
      * @return true or false
      */
@@ -72,9 +69,6 @@ public class AvaliadorController {
     }
 
     /**
-     * Requisito 7. Crie uma tela que lista as áreas de conhecimento que o Avaliador
-     * pode atuar;
-     * 
      * @param avaliador
      * @return areaConhecimento or null
      */
@@ -87,10 +81,6 @@ public class AvaliadorController {
     }
 
     /**
-     * Requisito 8. Crie uma tela que, ao selecionar uma área de conhecimento do
-     * Avaliador, liste os trabalhos da área, em ordem crescente com o número de
-     * avaliações com status“avaliado”;
-     * 
      * @param avaliador
      * @return listaTrabalhos or null
      */
