@@ -1,5 +1,6 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.AreaConhecimento;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
+import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 @Controller
 public class AvaliadorController {
@@ -20,6 +23,8 @@ public class AvaliadorController {
     AvaliadorRepository avaliadores;
     @Autowired
     AreaConhecimentoRepository areaConhecimentos;
+    @Autowired
+    TrabalhoRepository trabalhos;
 
     @RequestMapping("avaliador.html")
     public String avaliador(Model model) {
@@ -71,13 +76,37 @@ public class AvaliadorController {
      * pode atuar;
      * 
      * @param avaliador
-     * @return true or false
+     * @return areaConhecimento or null
      */
     public List<AreaConhecimento> areaConhecimentoAvaliador(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         if (aux != null) {
             return aux.getAreaConhecimento();
         }
+        return null;
+    }
+
+    /**
+     * Requisito 8. Crie uma tela que, ao selecionar uma área de conhecimento do
+     * Avaliador, liste os trabalhos da área, em ordem crescente com o número de
+     * avaliações com status“avaliado”;
+     * 
+     * @param avaliador
+     * @return listaTrabalhos or null
+     */
+    public List<Trabalho> trabalhosAreaConhecimento(Avaliador avaliador) {
+        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        Trabalho trabalho;
+        List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
+
+        if (aux != null) {
+            for (int i = 0; i < aux.getAreaConhecimento().size(); i++) {
+                trabalho = trabalhos.getOne(avaliador.getAreaConhecimento().get(i).getId());
+                listaTrabalhos.add(trabalho);
+            }
+            return listaTrabalhos;
+        }
+
         return null;
     }
 
