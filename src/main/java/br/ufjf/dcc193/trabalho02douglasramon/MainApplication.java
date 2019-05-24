@@ -21,6 +21,7 @@ public class MainApplication {
 
 	public static void main(String[] args) {
 		// SpringApplication.run(MainApplication.class, args);
+		System.out.println("<<< Iniciando Sistema >>>");
 		ConfigurableApplicationContext ctx = SpringApplication.run(MainApplication.class, args);
 		AreaConhecimentoRepository repositorioAreaConhecimento = ctx.getBean(AreaConhecimentoRepository.class);
 		TrabalhoRepository repositorioTrabalho = ctx.getBean(TrabalhoRepository.class);
@@ -59,7 +60,6 @@ public class MainApplication {
 		repositorioRevisao.save(r1);
 		repositorioRevisao.save(r2);
 		repositorioRevisao.save(r3);
-
 	}
 
 }
