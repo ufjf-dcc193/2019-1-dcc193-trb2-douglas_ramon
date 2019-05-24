@@ -40,6 +40,7 @@ public class TrabalhoController {
     public ModelAndView editarTrabalho(Trabalho trabalho) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
+        mv.addObject("areaConhecimento", areaConhecimentos.findAll());
         mv.setViewName("trabalho/editarTrabalho");
         return mv;
     }

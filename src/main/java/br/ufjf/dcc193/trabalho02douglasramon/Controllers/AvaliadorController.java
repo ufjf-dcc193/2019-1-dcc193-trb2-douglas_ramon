@@ -39,6 +39,7 @@ public class AvaliadorController {
     public ModelAndView editarAvaliador(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", avaliadores.getOne(avaliador.getId()));
+        mv.addObject("areaConhecimento", areaConhecimentos.findAll());
         mv.setViewName("avaliador/editarAvaliador");
         return mv;
     }

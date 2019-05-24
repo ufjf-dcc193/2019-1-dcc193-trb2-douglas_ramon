@@ -44,6 +44,8 @@ public class RevisaoController {
     public ModelAndView editarRevisao(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("revisao", revisoes.getOne(revisao.getId()));
+        mv.addObject("avaliador", avaliadores.findAll());
+        mv.addObject("trabalho", trabalhos.findAll());
         mv.setViewName("revisao/editarRevisao");
         return mv;
     }
