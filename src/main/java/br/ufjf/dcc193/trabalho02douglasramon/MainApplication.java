@@ -16,6 +16,10 @@ import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @SpringBootApplication
 public class MainApplication {
 

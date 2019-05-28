@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Entity
 @Table(name = "areaconhecimento")
 public class AreaConhecimento {
@@ -14,22 +18,42 @@ public class AreaConhecimento {
     private Long id;
     private String descricao;
 
+    /**
+     *
+     * @param descricao
+     */
     public AreaConhecimento(String descricao) {
         this.descricao = descricao;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     *
+     * @param descricao
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }

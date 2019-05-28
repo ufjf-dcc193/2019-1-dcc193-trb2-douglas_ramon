@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Entity
 @Table(name = "avaliador")
 public class Avaliador {
@@ -22,15 +26,31 @@ public class Avaliador {
     @OneToMany(fetch = FetchType.EAGER)
     private List<AreaConhecimento> areaConhecimento;
 
+    /**
+     *
+     */
     public Avaliador() {
     }
 
+    /**
+     *
+     * @param nome
+     * @param email
+     * @param codigo
+     */
     public Avaliador(String nome, String email, int codigo) {
         this.nome = nome;
         this.email = email;
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @param nome
+     * @param email
+     * @param codigo
+     * @param areaConhecimento
+     */
     public Avaliador(String nome, String email, int codigo, List<AreaConhecimento> areaConhecimento) {
         this.nome = nome;
         this.email = email;
@@ -52,34 +72,66 @@ public class Avaliador {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<AreaConhecimento> getAreaConhecimento() {
         return areaConhecimento;
     }
 
+    /**
+     *
+     * @param areaConhecimento
+     */
     public void setAreaConhecimento(List<AreaConhecimento> areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }

@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Entity
 @Table(name = "trabalho")
 public class Trabalho {
@@ -20,9 +24,19 @@ public class Trabalho {
     @OneToOne(fetch = FetchType.EAGER)
     private AreaConhecimento areaConhecimento;
 
+    /**
+     *
+     */
     public Trabalho() {
     }
 
+    /**
+     *
+     * @param titulo
+     * @param descricao
+     * @param url
+     * @param areaConhecimento
+     */
     public Trabalho(String titulo, String descricao, String url, AreaConhecimento areaConhecimento) {
         this.titulo = titulo;
         this.descricao = descricao;
@@ -44,34 +58,66 @@ public class Trabalho {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     *
+     * @param titulo
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     *
+     * @param descricao
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     *
+     * @param url
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     *
+     * @return
+     */
     public AreaConhecimento getAreaConhecimento() {
         return areaConhecimento;
     }
 
+    /**
+     *
+     * @param areaConhecimento
+     */
     public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }

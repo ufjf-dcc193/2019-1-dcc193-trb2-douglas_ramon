@@ -17,6 +17,10 @@ import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoReposit
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Controller
 public class AvaliadorController {
     @Autowired
@@ -26,23 +30,43 @@ public class AvaliadorController {
     @Autowired
     TrabalhoRepository trabalhos;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("avaliador.html")
     public String avaliador(Model model) {
         model.addAttribute("avaliador", avaliadores.findAll());
         return "avaliador/avaliador";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     public String formAvaliador(Model model) {
         model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
         return "avaliador/formAvaliador";
     }
 
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
     @RequestMapping("cadastrarAvaliador.html")
     public RedirectView cadastrarAvaliador(Avaliador avaliador) {
         avaliadores.save(avaliador);
         return new RedirectView("avaliador.html");
     }
 
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
     @RequestMapping("editarAvaliador.html")
     public ModelAndView editarAvaliador(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
@@ -52,6 +76,11 @@ public class AvaliadorController {
         return mv;
     }
 
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
     public Boolean identificacaoSistema(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         if (aux != null) {
@@ -62,6 +91,11 @@ public class AvaliadorController {
         return false;
     }
 
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
     public List<AreaConhecimento> getListaAreaConhecimentoAvaliador(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         if (aux != null) {
@@ -70,6 +104,11 @@ public class AvaliadorController {
         return null;
     }
 
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
     public List<Trabalho> getListaTrabalhosAreaConhecimentoAvaliador(Avaliador avaliador) {
         List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
         Avaliador aux = avaliadores.getOne(avaliador.getId());

@@ -11,6 +11,10 @@ import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Controller
 public class TrabalhoController {
     @Autowired
@@ -18,24 +22,44 @@ public class TrabalhoController {
     @Autowired
     AreaConhecimentoRepository areaConhecimentos;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("trabalho.html")
     public String trabalho(Model model) {
         model.addAttribute("trabalho", trabalhos.findAll());
         return "trabalho/trabalho";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("formTrabalho.html")
     public String formTrabalho(Model model) {
         model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
         return "trabalho/formTrabalho";
     }
 
+    /**
+     *
+     * @param trabalho
+     * @return
+     */
     @RequestMapping("cadastrarTrabalho.html")
     public RedirectView cadastrarTrabalho(Trabalho trabalho) {
         trabalhos.save(trabalho);
         return new RedirectView("trabalho.html");
     }
 
+    /**
+     *
+     * @param trabalho
+     * @return
+     */
     @RequestMapping("editarTrabalho.html")
     public ModelAndView editarTrabalho(Trabalho trabalho) {
         ModelAndView mv = new ModelAndView();

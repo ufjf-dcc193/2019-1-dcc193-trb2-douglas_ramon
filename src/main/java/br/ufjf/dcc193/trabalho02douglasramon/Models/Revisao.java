@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ *
+ * @authors douglas e ramon
+ */
 @Entity
 @Table(name = "revisao")
 public class Revisao {
@@ -22,9 +26,20 @@ public class Revisao {
     @OneToOne(fetch = FetchType.EAGER)
     private Trabalho trabalho;
 
+    /**
+     *
+     */
     public Revisao() {
     }
 
+    /**
+     *
+     * @param nota
+     * @param descricao
+     * @param status
+     * @param trabalho
+     * @param avaliador
+     */
     public Revisao(int nota, String descricao, String status, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
@@ -33,6 +48,13 @@ public class Revisao {
         this.status = status;
     }
 
+    /**
+     *
+     * @param nota
+     * @param status
+     * @param trabalho
+     * @param avaliador
+     */
     public Revisao(int nota, String status, Trabalho trabalho, Avaliador avaliador) {
         this.avaliador = avaliador;
         this.trabalho = trabalho;
@@ -54,42 +76,82 @@ public class Revisao {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Avaliador getAvaliador() {
         return avaliador;
     }
 
+    /**
+     *
+     * @param avaliador
+     */
     public void setAvaliador(Avaliador avaliador) {
         this.avaliador = avaliador;
     }
 
+    /**
+     *
+     * @return
+     */
     public Trabalho getTrabalho() {
         return trabalho;
     }
 
+    /**
+     *
+     * @param trabalho
+     */
     public void setTrabalho(Trabalho trabalho) {
         this.trabalho = trabalho;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNota() {
         return nota;
     }
 
+    /**
+     *
+     * @param nota
+     */
     public void setNota(int nota) {
         this.nota = nota;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     *
+     * @param descricao
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(String status) {
         this.status = status;
     }
