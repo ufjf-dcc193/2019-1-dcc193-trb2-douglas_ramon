@@ -62,7 +62,7 @@ public class AvaliadorController {
         return false;
     }
 
-    public List<AreaConhecimento> areaConhecimentoAvaliador(Avaliador avaliador) {
+    public List<AreaConhecimento> getListaAreaConhecimentoAvaliador(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         if (aux != null) {
             return aux.getAreaConhecimento();
@@ -70,7 +70,7 @@ public class AvaliadorController {
         return null;
     }
 
-    public List<Trabalho> listaTrabalhosAreaConhecimentoAvaliador(Avaliador avaliador) {
+    public List<Trabalho> getListaTrabalhosAreaConhecimentoAvaliador(Avaliador avaliador) {
         List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
         Avaliador aux = avaliadores.getOne(avaliador.getId());
         Trabalho trabalho;
