@@ -79,7 +79,7 @@ public class AvaliadorController {
     /**
      *
      * @param avaliador
-     * @return
+     * @return true ou false
      */
     public Boolean identificacaoSistema(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
@@ -94,7 +94,7 @@ public class AvaliadorController {
     /**
      *
      * @param avaliador
-     * @return
+     * @return List<AreaConhecimento> ou null
      */
     public List<AreaConhecimento> getListaAreaConhecimentoAvaliador(Avaliador avaliador) {
         Avaliador aux = avaliadores.getOne(avaliador.getId());
@@ -107,7 +107,7 @@ public class AvaliadorController {
     /**
      *
      * @param avaliador
-     * @return
+     * @return List<Trabalho> ou null
      */
     public List<Trabalho> getListaTrabalhosAreaConhecimentoAvaliador(Avaliador avaliador) {
         List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
