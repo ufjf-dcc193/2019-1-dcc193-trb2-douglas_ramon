@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  *
@@ -18,9 +19,12 @@ public class Trabalho {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @NotBlank(message = "É preciso um título!")
     private String titulo;
+    @NotBlank(message = "É preciso uma descrição!")
     private String descricao;
-    private String url;
+    @NotBlank(message = "É preciso uma url!")
+    private String url;    
     @OneToOne(fetch = FetchType.EAGER)
     private AreaConhecimento areaConhecimento;
 
