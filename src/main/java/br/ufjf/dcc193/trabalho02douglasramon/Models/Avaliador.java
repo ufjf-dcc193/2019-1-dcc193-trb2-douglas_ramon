@@ -25,7 +25,7 @@ public class Avaliador {
     @NotBlank(message = "É preciso um nome!")
     private String nome;
     @NotBlank(message = "É preciso um email!")
-    @Email(message = "É preciso um válido!")
+    @Email(message = "É preciso um email válido!")
     private String email;
     @NotBlank(message = "É preciso um codigo!")
     private int codigo;
