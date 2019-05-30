@@ -37,6 +37,28 @@ public class Revisao {
      * @param nota
      * @param descricao
      * @param status
+     */
+    public Revisao(int nota, String descricao, String status) {
+        this.nota = nota;
+        this.descricao = descricao;
+        this.status = status;
+    }
+
+    /**
+     *
+     * @param nota
+     * @param status
+     */
+    public Revisao(int nota, String status) {
+        this.nota = nota;
+        this.status = status;
+    }
+
+    /**
+     *
+     * @param nota
+     * @param descricao
+     * @param status
      * @param trabalho
      * @param avaliador
      */
