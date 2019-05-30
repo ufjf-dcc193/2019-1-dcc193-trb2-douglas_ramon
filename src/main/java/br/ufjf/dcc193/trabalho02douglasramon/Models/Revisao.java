@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
 /**
  *
@@ -18,8 +20,11 @@ public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")
     private int nota;
+    @NotBlank(message = "É preciso uma descrição!")
     private String descricao;
+    @NotBlank(message = "É preciso um status!")
     private String status;
     @OneToOne(fetch = FetchType.EAGER)
     private Avaliador avaliador;
