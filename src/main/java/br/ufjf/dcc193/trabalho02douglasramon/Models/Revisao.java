@@ -20,8 +20,9 @@ public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @NotBlank(message = "É preciso uma nota!")
     @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")
-    private int nota;    
+    private int nota;
     private String descricao;
     @NotBlank(message = "É preciso um status!")
     private String status;
