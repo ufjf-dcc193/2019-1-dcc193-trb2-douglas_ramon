@@ -24,10 +24,10 @@ public class Avaliador {
     private Long id;
     @NotBlank(message = "É preciso um nome!")
     private String nome;
-    @NotBlank(message = "É preciso um email!")
-    @Email(message = "É preciso um email válido!")
+    @NotBlank(message = "É preciso um e-mail!")
+    @Email(message = "É preciso um e-mail válido!")
     private String email;
-    @NotBlank(message = "É preciso um codigo!")
+    @NotBlank(message = "É preciso um código!")
     private int codigo;
     @OneToMany(fetch = FetchType.EAGER)
     private List<AreaConhecimento> areaConhecimento;

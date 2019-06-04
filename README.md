@@ -4,8 +4,8 @@
 ### ALUNOS:
 
 Douglas Baumgratz de Carvalho <br>
-Email: douglas.baumgratz@gmail.com  
+E-mail: douglas.baumgratz@gmail.com  
 
 ---
 Ramon Vaz de Mello Larivoir <br>
-Email: rlarivoir@ice.ufjf.br
+E-mail: rlarivoir@ice.ufjf.br
