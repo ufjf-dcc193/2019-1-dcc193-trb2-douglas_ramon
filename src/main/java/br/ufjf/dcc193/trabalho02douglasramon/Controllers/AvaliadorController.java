@@ -43,6 +43,18 @@ public class AvaliadorController {
 
     /**
      *
+     * @return
+     */
+    @RequestMapping({"/avaliador-novo.html"})
+    public ModelAndView novo() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("avaliador/novo");
+        mv.addObject("title", "Cadastrar Avaliador");
+        return mv;
+    }
+
+    /**
+     *
      * @param model
      * @return
      */

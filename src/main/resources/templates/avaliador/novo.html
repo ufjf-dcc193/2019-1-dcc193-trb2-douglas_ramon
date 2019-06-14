@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/header :: header"></header>
+
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+        <form action="membro-salvar.html" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+                <input required type="text" class="form-control" id="nome" name="nome" placeholder="Nome completo">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="funcao">Função</label>
+                    <input required type="text" class="form-control" id="funcao" name="funcao" placeholder="Função">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input required type="email" class="form-control" id="email" name="email"
+                        placeholder="seu@email.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="ong">ONG</label>
+                    <select id="ong" name="ongMembro" class="form-control" required>
+                        <c:forEach var="sede" items="${sedes}">
+                            <option value="${sede.id}">${sede.nomeFantasia}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dataEntrada">Data de entrada</label>
+                    <input required type="date" class="form-control" id="dataEntrada" name="dataEntrada"
+                        placeholder="Dada de entrada">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dataSaida">Data de saída</label>
+                    <input required type="date" class="form-control" id="dataSaida" name="dataSaida"
+                        placeholder="Data de saída">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="membro-listar.html" class="btn btn-danger">Cancelar</a>
+        </form>
+    </div>
+
+    <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/header :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="area: ${areas}">
+                    <td th:text=${area.descricao}></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
