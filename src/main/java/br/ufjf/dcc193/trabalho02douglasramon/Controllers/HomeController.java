@@ -2,7 +2,6 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -15,9 +14,8 @@ public class HomeController {
      *
      * @return
      */
-    @RequestMapping("/")
-    @ResponseBody
+    @RequestMapping({"/","/index.html"})
     public String index() {
-        return "<h1>Bem vindo!</h1>";
+        return "index";
     }
 }
