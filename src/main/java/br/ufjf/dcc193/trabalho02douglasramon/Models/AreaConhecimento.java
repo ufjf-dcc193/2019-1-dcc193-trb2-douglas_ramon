@@ -12,13 +12,18 @@ import javax.validation.constraints.NotBlank;
  * @authors douglas e ramon
  */
 @Entity
-@Table(name = "areaconhecimento")
+@Table(name = "area")
 public class AreaConhecimento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "É preciso uma descrição!")
     private String descricao;
+
+
+    public AreaConhecimento() {
+        
+    }
 
     /**
      *

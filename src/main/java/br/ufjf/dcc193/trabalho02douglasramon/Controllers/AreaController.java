@@ -53,8 +53,7 @@ public class AreaController {
     public ModelAndView listar() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("area/listar");
-        List<AreaConhecimento> areas = new ArrayList<>();
-        areas = areaConhecimentos.findAll();
+        List<AreaConhecimento> areas = areaConhecimentos.findAll();
         mv.addObject("areas", areas);
         mv.addObject("title", "Lista de Áreas");
         return mv;
