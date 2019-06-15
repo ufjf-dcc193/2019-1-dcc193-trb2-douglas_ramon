@@ -25,7 +25,7 @@
                 <label for="areaConhecimento">Área de conhecimento</label>
                 <select name="areaConhecimento" id="areaConhecimento">
                     <div class="container" th:each="area: ${areas}" th:object=${area}>
-                        <option value="" th:value=*{descricao} th:text=*{descricao}></option>
+                        <option value="" th:value=*{id} th:text=*{descricao}></option>
                     </div>
                 </select>
             </div>

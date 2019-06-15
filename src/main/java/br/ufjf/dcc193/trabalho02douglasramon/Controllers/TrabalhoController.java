@@ -1,9 +1,13 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -42,43 +46,46 @@ public class TrabalhoController {
      * @param model
      * @return
      */
-    @RequestMapping("formTrabalho.html")
-    public String formTrabalho(Model model) {
-        model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
-        return "trabalho/formTrabalho";
-    }
-
-    /**
-     *
-     * @param trabalho
-     * @return
-     */
-    @RequestMapping("cadastrarTrabalho.html")
-    public RedirectView cadastrarTrabalho(Trabalho trabalho) {
-        trabalhos.save(trabalho);
-        return new RedirectView("trabalho.html");
-    }
-
-    /**
-     *
-     * @param trabalho
-     * @return
-     */
-    @RequestMapping("editarTrabalho.html")
-    public ModelAndView editarTrabalho(Trabalho trabalho) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
-        mv.addObject("areaConhecimento", areaConhecimentos.findAll());
-        mv.setViewName("trabalho/editarTrabalho");
-        return mv;
-    }
-
     @GetMapping("/trabalho-novo.html")
-    public ModelAndView novo() {
+    public ModelAndView formTrabalho() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("trabalho/novo");
         mv.addObject("areas", areaConhecimentos.findAll());
         mv.addObject("title", "Trabalho");
+        return mv;
+    }
+
+    /**
+     *
+     * @param trabalho
+     * @return
+     */
+    @PostMapping({"/trabalho-novo.html", "/trabalho-editar.html"})
+    public ModelAndView cadastrarTrabalho(@Valid Trabalho trabalho, BindingResult binding) {
+        ModelAndView mv = new ModelAndView();
+        if(binding.hasErrors()){
+            mv.setViewName("trabalho/editar");
+            mv.addObject("trabalho", trabalho);
+            mv.addObject("areas", areaConhecimentos.findAll());
+            mv.addObject("title", "Trabalho");
+            return mv;
+        } 
+        trabalhos.save(trabalho);
+        mv.setViewName("redirect:trabalho-listar.html");
+        return mv;
+    }
+
+    /**
+     *
+     * @param trabalho
+     * @return
+     */
+    @GetMapping("/trabalho-editar.html")
+    public ModelAndView editarTrabalho(Trabalho trabalho) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
+        mv.addObject("areas", areaConhecimentos.findAll());
+        mv.setViewName("trabalho/editar");
         return mv;
     }
 
