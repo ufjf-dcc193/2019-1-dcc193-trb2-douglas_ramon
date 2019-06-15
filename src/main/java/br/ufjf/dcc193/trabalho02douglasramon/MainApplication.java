@@ -83,9 +83,9 @@ public class MainApplication {
 		//repositorioTrabalho.save(t2);
 		//repositorioTrabalho.save(t3);
 
-		a1 = new Avaliador("Nome 1", "Email 1", 1, listAC1);
-		a2 = new Avaliador("Nome 2", "Email 2", 2);
-		a3 = new Avaliador("Nome 3", "Email 3", 3, listAC2);
+		a1 = new Avaliador("Nome 1", "Email 1", "1", listAC1);
+		a2 = new Avaliador("Nome 2", "Email 2", "2");
+		a3 = new Avaliador("Nome 3", "Email 3", "3", listAC2);
 		//repositorioAvaliador.save(a1);
 		//repositorioAvaliador.save(a2);
 		//repositorioAvaliador.save(a3);

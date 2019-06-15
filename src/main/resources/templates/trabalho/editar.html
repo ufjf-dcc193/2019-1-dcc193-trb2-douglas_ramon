@@ -30,7 +30,7 @@
                 <label for="areaConhecimento">Área de conhecimento</label>
                 <select name="areaConhecimento" id="areaConhecimento">
                     <div class="container" th:each="area: ${areas}">
-                        <option value="" th:value=${area.id} th:text="${area.descricao}"></option>
+                        <option value="" th:value=${area.id} th:text="${area.descricao}" th:selected="${area.id==areaConhecimento}"></option>
                     </div>
                 </select>
                 <strong th:if="${#fields.hasErrors('areaConhecimento')}" th:errors="*{areaConhecimento}"></strong>

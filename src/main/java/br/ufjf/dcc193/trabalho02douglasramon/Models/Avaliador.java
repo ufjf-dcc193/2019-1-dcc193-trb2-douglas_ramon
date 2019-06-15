@@ -28,7 +28,7 @@ public class Avaliador {
     @Email(message = "É preciso um e-mail válido!")
     private String email;
     @NotBlank(message = "É preciso um código!")
-    private int codigo;
+    private String codigo;
     @OneToMany(fetch = FetchType.EAGER)
     private List<AreaConhecimento> areaConhecimento;
 
@@ -44,7 +44,7 @@ public class Avaliador {
      * @param email
      * @param codigo
      */
-    public Avaliador(String nome, String email, int codigo) {
+    public Avaliador(String nome, String email, String codigo) {
         this.nome = nome;
         this.email = email;
         this.codigo = codigo;
@@ -57,7 +57,7 @@ public class Avaliador {
      * @param codigo
      * @param areaConhecimento
      */
-    public Avaliador(String nome, String email, int codigo, List<AreaConhecimento> areaConhecimento) {
+    public Avaliador(String nome, String email, String codigo, List<AreaConhecimento> areaConhecimento) {
         this.nome = nome;
         this.email = email;
         this.codigo = codigo;
@@ -114,7 +114,7 @@ public class Avaliador {
      *
      * @return
      */
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
@@ -122,7 +122,7 @@ public class Avaliador {
      *
      * @param codigo
      */
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

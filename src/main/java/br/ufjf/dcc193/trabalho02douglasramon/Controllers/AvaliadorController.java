@@ -3,9 +3,14 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -24,28 +29,31 @@ import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 @Controller
 public class AvaliadorController {
     @Autowired
-    AvaliadorRepository avaliadores;
+    AvaliadorRepository avaliadoresRepository;
     @Autowired
-    AreaConhecimentoRepository areaConhecimentos;
+    AreaConhecimentoRepository areaConhecimentosRepository;
     @Autowired
-    TrabalhoRepository trabalhos;
+    TrabalhoRepository trabalhosRepository;
 
     /**
      *
      * @param model
      * @return
      */
-    @RequestMapping("avaliador.html")
-    public String avaliador(Model model) {
-        model.addAttribute("avaliador", avaliadores.findAll());
-        return "avaliador/avaliador";
+    @GetMapping("/avaliador-listar.html")
+    public ModelAndView avaliador() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("title", "Avaliadores");
+        mv.addObject("avaliadores", avaliadoresRepository.findAll());
+        mv.setViewName("avaliador/listar");
+        return mv;
     }
 
     /**
      *
      * @return
      */
-    @RequestMapping({"/avaliador-novo.html"})
+    @GetMapping({"/avaliador-novo.html"})
     public ModelAndView novo() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliador/novo");
@@ -59,7 +67,7 @@ public class AvaliadorController {
      * @return
      */
     public String formAvaliador(Model model) {
-        model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
+        model.addAttribute("areaConhecimento", areaConhecimentosRepository.findAll());
         return "avaliador/formAvaliador";
     }
 
@@ -68,10 +76,18 @@ public class AvaliadorController {
      * @param avaliador
      * @return
      */
-    @RequestMapping("cadastrarAvaliador.html")
-    public RedirectView cadastrarAvaliador(Avaliador avaliador) {
-        avaliadores.save(avaliador);
-        return new RedirectView("avaliador.html");
+    @PostMapping({"avaliador-novo.html", "avaliador-editar.html"})
+    public ModelAndView cadastrarAvaliador(@Valid Avaliador avaliador, BindingResult binding) {
+        ModelAndView mv = new ModelAndView();
+        if(binding.hasErrors()){
+            mv.setViewName("avaliador/editar");
+            mv.addObject("avaliador", avaliador);
+            mv.addObject("title", "Avaliador");
+            return mv;
+        } 
+        avaliadoresRepository.save(avaliador);
+        mv.setViewName("redirect:avaliador-listar.html");
+        return mv;
     }
 
     /**
@@ -79,12 +95,11 @@ public class AvaliadorController {
      * @param avaliador
      * @return
      */
-    @RequestMapping("editarAvaliador.html")
+    @GetMapping("/avaliador-editar.html")
     public ModelAndView editarAvaliador(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("avaliador", avaliadores.getOne(avaliador.getId()));
-        mv.addObject("areaConhecimento", areaConhecimentos.findAll());
-        mv.setViewName("avaliador/editarAvaliador");
+        mv.addObject("avaliador", avaliadoresRepository.getOne(avaliador.getId()));
+        mv.setViewName("avaliador/editar");
         return mv;
     }
 
@@ -94,7 +109,7 @@ public class AvaliadorController {
      * @return true ou false
      */
     public Boolean identificacaoSistema(Avaliador avaliador) {
-        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        Avaliador aux = avaliadoresRepository.getOne(avaliador.getId());
         if (aux != null) {
             if (aux.getEmail() == avaliador.getEmail() && aux.getCodigo() == avaliador.getCodigo()) {
                 return true;
@@ -109,7 +124,7 @@ public class AvaliadorController {
      * @return List<AreaConhecimento> ou null
      */
     public List<AreaConhecimento> getListaAreaConhecimentoAvaliador(Avaliador avaliador) {
-        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        Avaliador aux = avaliadoresRepository.getOne(avaliador.getId());
         if (aux != null) {
             return aux.getAreaConhecimento();
         }
@@ -123,12 +138,12 @@ public class AvaliadorController {
      */
     public List<Trabalho> getListaTrabalhosAreaConhecimentoAvaliador(Avaliador avaliador) {
         List<Trabalho> listaTrabalhos = new ArrayList<Trabalho>();
-        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        Avaliador aux = avaliadoresRepository.getOne(avaliador.getId());
         Trabalho trabalho;
 
         if (aux != null) {
             for (int i = 0; i < aux.getAreaConhecimento().size(); i++) {
-                trabalho = trabalhos.getOne(avaliador.getAreaConhecimento().get(i).getId());
+                trabalho = trabalhosRepository.getOne(avaliador.getAreaConhecimento().get(i).getId());
                 listaTrabalhos.add(trabalho);
             }
             return listaTrabalhos;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/header :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="avaliador: ${avaliadores}" th:object=${avaliador}>
+                    <td th:text=*{nome}></td>
+                    <td th:text=*{email}></td>
+                    <td>
+                        <form action="avaliador-editar.html">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="avaliador-excluir.html" method="POST">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
