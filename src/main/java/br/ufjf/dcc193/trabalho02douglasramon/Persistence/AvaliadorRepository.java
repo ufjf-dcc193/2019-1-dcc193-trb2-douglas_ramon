@@ -9,4 +9,5 @@ import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
  * @authors douglas e ramon
  */
 public interface AvaliadorRepository extends JpaRepository<Avaliador, Long> {
+    public Avaliador findByEmail(String email);
 }

@@ -108,6 +108,21 @@ public class AvaliadorController {
         return mv;
     }
 
+    @PostMapping("/login.html")
+    public ModelAndView login(Avaliador av) {
+        ModelAndView mv = new ModelAndView();
+        List<Avaliador> avaliadores = avaliadoresRepository.findAll();
+        mv.setViewName("redirect:index.html");
+        for (Avaliador avaliador : avaliadores) {
+            if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
+                mv.addObject("avaliador", avaliador);
+                mv.setViewName("redirect:avaliador-home.html");
+                return mv;
+            }
+        }
+        return mv;
+    }
+
     /**
      *
      * @param avaliador
