@@ -3,6 +3,7 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -27,10 +28,13 @@ public class TrabalhoController {
      * @param model
      * @return
      */
-    @RequestMapping("trabalho.html")
-    public String trabalho(Model model) {
-        model.addAttribute("trabalho", trabalhos.findAll());
-        return "trabalho/trabalho";
+    @GetMapping("trabalho-listar.html")
+    public ModelAndView trabalho() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("trabalhos", trabalhos.findAll());
+        mv.addObject("title", "Trabalhos");
+        mv.setViewName("trabalho/listar");
+        return mv;
     }
 
     /**
@@ -66,6 +70,15 @@ public class TrabalhoController {
         mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
         mv.addObject("areaConhecimento", areaConhecimentos.findAll());
         mv.setViewName("trabalho/editarTrabalho");
+        return mv;
+    }
+
+    @GetMapping("/trabalho-novo.html")
+    public ModelAndView novo() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("trabalho/novo");
+        mv.addObject("areas", areaConhecimentos.findAll());
+        mv.addObject("title", "Trabalho");
         return mv;
     }
 

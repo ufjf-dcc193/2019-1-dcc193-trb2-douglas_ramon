@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/header :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Área de conhecimento</th>
+                    <th scope="col" colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="trabalho: ${trabalhos}" th:object=${trabalho}>
+                    <td th:text=*{titulo}></td>
+                    <td th:text=*{descricao}></td>
+                    <td th:text=*{url}></td>
+                    <td th:text=*{areaConhecimento.descricao}></td>
+                    <td>
+                        <form action="trabalho-editar.html">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="trabalho-excluir.html" method="POST">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
