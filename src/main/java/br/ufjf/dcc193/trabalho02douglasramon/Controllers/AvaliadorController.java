@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -69,6 +68,12 @@ public class AvaliadorController {
     public String formAvaliador(Model model) {
         model.addAttribute("areaConhecimento", areaConhecimentosRepository.findAll());
         return "avaliador/formAvaliador";
+    }
+    
+    @PostMapping("/avaliador-excluir.html")
+    public RedirectView remove(Avaliador avaliador) {
+        avaliadoresRepository.deleteById(avaliador.getId());
+        return new RedirectView("avaliador-listar.html");
     }
 
     /**
