@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/header :: header"></header>
+
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+        <form action="" th:object="${area}" method="POST">
+            <input type="hidden" name="id" th:field="*{id}">
+            <div class="form-group">
+                <strong th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></strong>
+                <label for="descricao">Descrição</label>
+                <input type="text" th:field="*{descricao}" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+
+    <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

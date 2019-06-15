@@ -13,12 +13,24 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Descrição</th>
-                    <th scope="col"></th>
+                    <th scope="col" colspan="2"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="area: ${areas}">
-                    <td th:text=${area.descricao}></td>
+                <tr th:each="area: ${areas}" th:object=${area}>
+                    <td th:text=*{descricao}></td>
+                    <td>
+                        <form action="area-editar.html">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="area-excluir.html" method="POST">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

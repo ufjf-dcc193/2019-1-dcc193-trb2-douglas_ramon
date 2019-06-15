@@ -3,9 +3,14 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,23 +34,25 @@ public class AreaController {
     @Autowired
     AreaConhecimentoRepository areaConhecimentos;
 
-    @RequestMapping(value = "/area-nova.html", method = RequestMethod.GET)
+    @GetMapping("/area-nova.html")
     public ModelAndView nova() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("area/nova");
-        mv.addObject("title", "Nova Área de Conhecimento");
+        mv.addObject("title", "Área de Conhecimento");
         return mv;
     }
 
-    @RequestMapping(value = "/area-nova.html", method = RequestMethod.POST)
-    public ModelAndView salvar(AreaConhecimento ac) {
+    @PostMapping({"/area-nova.html", "/area-editar.html"})
+    public ModelAndView salvar(@Valid AreaConhecimento ac, BindingResult binding) {
         ModelAndView mv = new ModelAndView();
+        if(binding.hasErrors()){
+            mv.setViewName("area/editar");
+            mv.addObject("area", ac);
+            mv.addObject("title", "Área de Conhecimento");
+            return mv;
+        } 
         areaConhecimentos.save(ac);
-        mv.setViewName("area/listar");
-        List<AreaConhecimento> areas = new ArrayList<>();
-        areas = areaConhecimentos.findAll();
-        mv.addObject("areas", areas);
-        mv.addObject("title", "Lista de Áreas");
+        mv.setViewName("redirect:area-listar.html");
         return mv;
     }
 
@@ -59,5 +66,20 @@ public class AreaController {
         return mv;
     }
     
+    @RequestMapping("/area-excluir.html")
+    public RedirectView remove(AreaConhecimento ac) {
+        areaConhecimentos.deleteById(ac.getId());
+        return new RedirectView("area-listar.html");
+    }
 
+    @GetMapping("/area-editar.html")
+    public ModelAndView editar(AreaConhecimento ac) {
+        ModelAndView mv = new ModelAndView();
+        AreaConhecimento area = areaConhecimentos.getOne(ac.getId());
+        mv.setViewName("area/editar");
+        mv.addObject("title", "Área de Conhecimento");
+        mv.addObject("area", area);
+        return mv;
+    }
+    
 }
