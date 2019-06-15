@@ -23,9 +23,9 @@ import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 @Controller
 public class TrabalhoController {
     @Autowired
-    TrabalhoRepository trabalhos;
+    TrabalhoRepository trabalhosRepository;
     @Autowired
-    AreaConhecimentoRepository areaConhecimentos;
+    AreaConhecimentoRepository areaConhecimentosRepository;
 
     /**
      *
@@ -35,7 +35,7 @@ public class TrabalhoController {
     @GetMapping("trabalho-listar.html")
     public ModelAndView trabalho() {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalhos", trabalhos.findAll());
+        mv.addObject("trabalhos", trabalhosRepository.findAll());
         mv.addObject("title", "Trabalhos");
         mv.setViewName("trabalho/listar");
         return mv;
@@ -50,7 +50,7 @@ public class TrabalhoController {
     public ModelAndView formTrabalho() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("trabalho/novo");
-        mv.addObject("areas", areaConhecimentos.findAll());
+        mv.addObject("areas", areaConhecimentosRepository.findAll());
         mv.addObject("title", "Trabalho");
         return mv;
     }
@@ -66,11 +66,11 @@ public class TrabalhoController {
         if(binding.hasErrors()){
             mv.setViewName("trabalho/editar");
             mv.addObject("trabalho", trabalho);
-            mv.addObject("areas", areaConhecimentos.findAll());
+            mv.addObject("areas", areaConhecimentosRepository.findAll());
             mv.addObject("title", "Trabalho");
             return mv;
         } 
-        trabalhos.save(trabalho);
+        trabalhosRepository.save(trabalho);
         mv.setViewName("redirect:trabalho-listar.html");
         return mv;
     }
@@ -83,10 +83,16 @@ public class TrabalhoController {
     @GetMapping("/trabalho-editar.html")
     public ModelAndView editarTrabalho(Trabalho trabalho) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalho", trabalhos.getOne(trabalho.getId()));
-        mv.addObject("areas", areaConhecimentos.findAll());
+        mv.addObject("trabalho", trabalhosRepository.getOne(trabalho.getId()));
+        mv.addObject("areas", areaConhecimentosRepository.findAll());
         mv.setViewName("trabalho/editar");
         return mv;
+    }
+    
+    @RequestMapping("/trabalho-excluir.html")
+    public RedirectView remove(Trabalho trabalho) {
+        trabalhosRepository.deleteById(trabalho.getId());
+        return new RedirectView("trabalho-listar.html");
     }
 
 }
