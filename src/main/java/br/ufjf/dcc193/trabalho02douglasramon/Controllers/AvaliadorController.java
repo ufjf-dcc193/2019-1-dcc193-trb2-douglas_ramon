@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -132,12 +133,29 @@ public class AvaliadorController {
         return mv;
     }
 
+    //ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador por parametro)
     @GetMapping("/meus-trabalhos.html")
-    public ModelAndView meusTrabalhos(Avaliador av) {
+    public ModelAndView meusTrabalhos() {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("avaliador", avaliadoresRepository.getOne(av.getId()));
         mv.addObject("title", "Meus trabalhos");
-        mv.addObject("trabalhos", getListaTrabalhosAreaConhecimentoAvaliador(av));
+        mv.addObject("trabalhos", trabalhosRepository.findAll());
+        mv.setViewName("avaliador/restrito/meus-trabalhos");
+        return mv;
+    }
+
+    @RequestMapping("/revisar.html")
+    public ModelAndView revisar(Trabalho t) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
+        mv.setViewName("avaliador/restrito/revisar");
+        return mv;
+    }
+
+    //ToDo - Adicionar avaliador no parametro
+    @GetMapping("/minhas-areas.html")
+    public ModelAndView minhasAreas() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("avaliador/restrito/minhas-areas");
         return mv;
     }
 

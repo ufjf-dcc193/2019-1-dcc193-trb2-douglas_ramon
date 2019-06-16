@@ -9,7 +9,7 @@
         <h1 th:text="${title}"></h1>
     </div>
     <div class="container">
-        <table class="table text-center" th:object="${avaliador}">
+        <table class="table text-center">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Título</th>
@@ -20,15 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="trabalho: ${trabalhos}">
-                    <td th:text=${trabalho.titulo}></td>
-                    <td th:text=${trabalho.descricao}></td>
-                    <td th:text=${trabalho.url}></td>
-                    <td th:text=${trablaho.areaConhecimento.descricao}></td>
+                <tr th:each="trabalho: ${trabalhos}" th:object=${trabalho}>
+                    <td th:text=*{titulo}></td>
+                    <td th:text=*{descricao}></td>
+                    <td th:text=*{url}></td>
+                    <td th:text=*{areaConhecimento.descricao}></td>
                     <td>
-                        <form action="trabalho-editar.html">
+                        <form action="revisar.html">
                             <input type="hidden" name="id" value="" th:value=*{id}>
-                            <input type="hidden" name="id" value="" th:value=${trabalho.id}>
                             <button type="submit" class="btn btn-link">Revisar</button>
                         </form>
                     </td>

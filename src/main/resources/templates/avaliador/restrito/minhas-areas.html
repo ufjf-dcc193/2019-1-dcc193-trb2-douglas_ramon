@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/headerAvaliador :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <a href="adicionar-area.html" class="btn btn-success">Adicionar área</a>
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Área 1</td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="id">
+                            <button type="submit" class="btn btn-link">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Área 2</td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="id">
+                            <button type="submit" class="btn btn-link">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+                <!--<tr th:each="area: ${areas}" th:object=${area}>
+                    <td th:text=*{descricao}></td>
+                    <td>
+                        <form action="remover-area.html" method="POST">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Remover</button>
+                        </form>
+                    </td>
+                </tr>-->
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
