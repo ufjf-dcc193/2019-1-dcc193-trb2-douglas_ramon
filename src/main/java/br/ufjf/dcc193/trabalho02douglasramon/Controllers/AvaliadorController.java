@@ -123,6 +123,15 @@ public class AvaliadorController {
         return mv;
     }
 
+    @GetMapping("/avaliador-home.html")
+    public ModelAndView home(Avaliador av) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("avaliador", av);
+        mv.addObject("title", "Home");
+        mv.setViewName("avaliador/restrito/index");
+        return mv;
+    }
+
     /**
      *
      * @param avaliador
