@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/headerAvaliador :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Trabalho</th>
+                    <th scope="col">Nota</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>trabalho 1</td>
+                    <td>nota 1</td>
+                    <td>descricao 1</td>
+                    <td>status 1</td>
+                </tr>
+                <tr>
+                    <td>trabalho 2</td>
+                    <td>nota 2</td>
+                    <td>descricao 2</td>
+                    <td>status 2</td>
+                </tr>
+                <tr th:each="trabalho: ${trabalhos}" th:object=${trabalho}>
+                    <td th:text=*{titulo}></td>
+                    <td th:text=*{descricao}></td>
+                    <td th:text=*{url}></td>
+                    <td th:text=*{areaConhecimento.descricao}></td>
+                    <td>
+                        <form action="trabalho-editar.html">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="trabalho-excluir.html" method="POST">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <button type="submit" class="btn btn-link">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

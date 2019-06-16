@@ -117,19 +117,19 @@ public class AvaliadorController {
         for (Avaliador avaliador : avaliadores) {
             if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
                 mv.addObject("avaliador", avaliador);
-                mv.setViewName("redirect:avaliador-index.html");
+                mv.setViewName("redirect:meus-dados.html");
                 return mv;
             }
         }
         return mv;
     }
 
-    @GetMapping("/avaliador-index.html")
+    @GetMapping("/meus-dados.html")
     public ModelAndView home(Avaliador av) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", av);
-        mv.addObject("title", "Home");
-        mv.setViewName("avaliador/restrito/index");
+        mv.addObject("title", "Meus dados");
+        mv.setViewName("avaliador/restrito/meus-dados");
         return mv;
     }
 
@@ -156,6 +156,14 @@ public class AvaliadorController {
     public ModelAndView minhasAreas() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliador/restrito/minhas-areas");
+        return mv;
+    }
+
+    //ToDo - Adicionar avaliador no parametro
+    @GetMapping("/minhas-revisoes.html")
+    public ModelAndView minhasRevisoes() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("avaliador/restrito/minhas-revisoes");
         return mv;
     }
 
