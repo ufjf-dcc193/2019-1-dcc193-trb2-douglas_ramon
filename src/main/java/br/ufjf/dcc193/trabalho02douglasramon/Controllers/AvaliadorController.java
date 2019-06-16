@@ -116,19 +116,28 @@ public class AvaliadorController {
         for (Avaliador avaliador : avaliadores) {
             if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
                 mv.addObject("avaliador", avaliador);
-                mv.setViewName("redirect:avaliador-home.html");
+                mv.setViewName("redirect:avaliador-index.html");
                 return mv;
             }
         }
         return mv;
     }
 
-    @GetMapping("/avaliador-home.html")
+    @GetMapping("/avaliador-index.html")
     public ModelAndView home(Avaliador av) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", av);
         mv.addObject("title", "Home");
         mv.setViewName("avaliador/restrito/index");
+        return mv;
+    }
+
+    @GetMapping("/meus-trabalhos.html")
+    public ModelAndView meusTrabalhos(Avaliador av) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("avaliador", avaliadoresRepository.getOne(av.getId()));
+        mv.addObject("title", "Meus trabalhos");
+        mv.addObject("trabalhos", getListaTrabalhosAreaConhecimentoAvaliador(av));
         return mv;
     }
 

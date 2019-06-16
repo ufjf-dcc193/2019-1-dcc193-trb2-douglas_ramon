@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head"></head>
+
+<body>
+    <header th:include="fragments/headerAvaliador :: header"></header>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="container">
+        <table class="table text-center" th:object="${avaliador}">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Área de conhecimento</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="trabalho: ${trabalhos}">
+                    <td th:text=${trabalho.titulo}></td>
+                    <td th:text=${trabalho.descricao}></td>
+                    <td th:text=${trabalho.url}></td>
+                    <td th:text=${trablaho.areaConhecimento.descricao}></td>
+                    <td>
+                        <form action="trabalho-editar.html">
+                            <input type="hidden" name="id" value="" th:value=*{id}>
+                            <input type="hidden" name="id" value="" th:value=${trabalho.id}>
+                            <button type="submit" class="btn btn-link">Revisar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
