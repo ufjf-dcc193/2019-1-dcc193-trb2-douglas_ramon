@@ -3,6 +3,8 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -53,7 +57,7 @@ public class AvaliadorController {
      *
      * @return
      */
-    @GetMapping({"/avaliador-novo.html"})
+    @GetMapping({ "/avaliador-novo.html" })
     public ModelAndView novo() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliador/novo");
@@ -70,7 +74,7 @@ public class AvaliadorController {
         model.addAttribute("areaConhecimento", areaConhecimentosRepository.findAll());
         return "avaliador/formAvaliador";
     }
-    
+
     @PostMapping("/avaliador-excluir.html")
     public RedirectView remove(Avaliador avaliador) {
         avaliadoresRepository.deleteById(avaliador.getId());
@@ -82,15 +86,15 @@ public class AvaliadorController {
      * @param avaliador
      * @return
      */
-    @PostMapping({"avaliador-novo.html", "avaliador-editar.html"})
+    @PostMapping({ "avaliador-novo.html", "avaliador-editar.html" })
     public ModelAndView cadastrarAvaliador(@Valid Avaliador avaliador, BindingResult binding) {
         ModelAndView mv = new ModelAndView();
-        if(binding.hasErrors()){
+        if (binding.hasErrors()) {
             mv.setViewName("avaliador/editar");
             mv.addObject("avaliador", avaliador);
             mv.addObject("title", "Avaliador");
             return mv;
-        } 
+        }
         avaliadoresRepository.save(avaliador);
         mv.setViewName("redirect:avaliador-listar.html");
         return mv;
@@ -115,7 +119,7 @@ public class AvaliadorController {
         List<Avaliador> avaliadores = avaliadoresRepository.findAll();
         mv.setViewName("redirect:index.html");
         for (Avaliador avaliador : avaliadores) {
-            if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
+            if (avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())) {
                 mv.addObject("avaliador", avaliador);
                 mv.setViewName("redirect:meus-dados.html");
                 return mv;
@@ -133,7 +137,8 @@ public class AvaliadorController {
         return mv;
     }
 
-    //ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador por parametro)
+    // ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador
+    // por parametro)
     @GetMapping("/meus-trabalhos.html")
     public ModelAndView meusTrabalhos() {
         ModelAndView mv = new ModelAndView();
@@ -151,7 +156,28 @@ public class AvaliadorController {
         return mv;
     }
 
-    //ToDo - Adicionar avaliador no parametro
+    @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
+    public ModelAndView revisarDepois(Trabalho t) {
+        ModelAndView mv = new ModelAndView();
+
+        return mv;
+    }
+
+    @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
+    public ModelAndView revisarAgora(Trabalho t) {
+        ModelAndView mv = new ModelAndView();
+
+        return mv;
+    }
+
+    @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
+    public ModelAndView pular(Trabalho t) {
+        ModelAndView mv = new ModelAndView();
+
+        return mv;
+    }
+
+    // ToDo - Adicionar avaliador no parametro
     @GetMapping("/minhas-areas.html")
     public ModelAndView minhasAreas() {
         ModelAndView mv = new ModelAndView();
@@ -159,7 +185,7 @@ public class AvaliadorController {
         return mv;
     }
 
-    //ToDo - Adicionar avaliador no parametro
+    // ToDo - Adicionar avaliador no parametro
     @GetMapping("/minhas-revisoes.html")
     public ModelAndView minhasRevisoes() {
         ModelAndView mv = new ModelAndView();

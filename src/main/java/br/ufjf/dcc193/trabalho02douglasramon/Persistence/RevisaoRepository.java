@@ -9,4 +9,5 @@ import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
  * @authors douglas e ramon
  */
 public interface RevisaoRepository extends JpaRepository<Revisao, Long> {
+    
 }

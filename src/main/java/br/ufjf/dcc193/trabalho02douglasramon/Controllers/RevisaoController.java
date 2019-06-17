@@ -92,45 +92,45 @@ public class RevisaoController {
      * @param revisao
      * @return
      */
-    @RequestMapping("revisarDepois.html")
-    public ModelAndView revisarDepois(Revisao revisao) {
-        ModelAndView mv = new ModelAndView();
-        Revisao aux = revisoes.getOne(revisao.getId());
-        aux.setStatus("A fazer");
-        revisoes.save(aux);
-        mv.setViewName("trabalho/revisarDepois");
-        return mv;
-    }
+    // @RequestMapping("revisarDepois.html")
+    // public ModelAndView revisarDepois(Revisao revisao) {
+    //     ModelAndView mv = new ModelAndView();
+    //     Revisao aux = revisoes.getOne(revisao.getId());
+    //     aux.setStatus("A fazer");
+    //     revisoes.save(aux);
+    //     mv.setViewName("trabalho/revisarDepois");
+    //     return mv;
+    // }
 
     /**
      *
      * @param revisao
      * @return
      */
-    @RequestMapping("revisarAgora.html")
-    public ModelAndView revisarAgora(Revisao revisao) {
-        ModelAndView mv = new ModelAndView();
-        Revisao aux = revisoes.getOne(revisao.getId());
-        aux.setStatus("Avaliado");
-        revisoes.save(aux);
-        mv.setViewName("trabalho/revisarAgora");
-        return mv;
-    }
+    // @RequestMapping("revisarAgora.html")
+    // public ModelAndView revisarAgora(Revisao revisao) {
+    //     ModelAndView mv = new ModelAndView();
+    //     Revisao aux = revisoes.getOne(revisao.getId());
+    //     aux.setStatus("Avaliado");
+    //     revisoes.save(aux);
+    //     mv.setViewName("trabalho/revisarAgora");
+    //     return mv;
+    // }
 
     /**
      *
      * @param revisao
      * @return
      */
-    @RequestMapping("pular.html")
-    public ModelAndView pular(Revisao revisao) {
-        ModelAndView mv = new ModelAndView();
-        Revisao aux = revisoes.getOne(revisao.getId());
-        aux.setStatus("Impedido");
-        revisoes.save(aux);
-        mv.setViewName("trabalho/pular");
-        return mv;
-    }
+    // @RequestMapping("pular.html")
+    // public ModelAndView pular(Revisao revisao) {
+    //     ModelAndView mv = new ModelAndView();
+    //     Revisao aux = revisoes.getOne(revisao.getId());
+    //     aux.setStatus("Impedido");
+    //     revisoes.save(aux);
+    //     mv.setViewName("trabalho/pular");
+    //     return mv;
+    // }
 
     /**
      *

@@ -9,4 +9,5 @@ import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
  * @authors douglas e ramon
  */
 public interface TrabalhoRepository extends JpaRepository<Trabalho, Long> {
+    
 }

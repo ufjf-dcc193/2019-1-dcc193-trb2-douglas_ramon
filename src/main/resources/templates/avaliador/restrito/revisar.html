@@ -31,7 +31,7 @@
                     name="area" placeholder="Área">
             </div>
         </fieldset>
-        <form action="">
+        <form th:action="@{/revisar}" method="POST">
             <div class="form-group">
                 <label for="nota">Nota</label>
                 <input required type="number" class="form-control" id="nota" name="nota"
@@ -43,9 +43,9 @@
                     placeholder="Descrição" rows="2"></textarea>
             </div>
             <div class="d-flex justify-content-around row mx-md-n5">
-                <button type="submit" class="btn btn-primary">Revisar depois</button>
-                <button type="submit" class="btn btn-success">Revisar agora</button>
-                <button type="submit" class="btn btn-danger">Pular</button>
+                <button type="submit" class="btn btn-primary" name="revisarDepois" id="asd" th:formaction="@{/revisar}">Revisar depois</button>
+                <button type="submit" class="btn btn-success" name="revisarAgora">Revisar agora</button>
+                <button type="submit" class="btn btn-danger" name="pular">Pular</button>
             </div>
         </form>
     </div>
