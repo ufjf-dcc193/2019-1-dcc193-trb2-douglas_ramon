@@ -135,7 +135,7 @@ public class AvaliadorController {
     @GetMapping("/meus-dados.html")
     public ModelAndView home(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
             mv.addObject("title", "Meus dados");
@@ -146,13 +146,14 @@ public class AvaliadorController {
         return mv;
     }
 
-    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar avaliador
+    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar
+    // avaliador
     // por parametro)
     @GetMapping("/meus-trabalhos.html")
     public ModelAndView meusTrabalhos(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("title", "Meus trabalhos");
             mv.addObject("trabalhos", trabalhosRepository.findAll());
@@ -165,40 +166,46 @@ public class AvaliadorController {
     @RequestMapping("/revisar.html")
     public ModelAndView revisar(Trabalho t, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
-            Avaliador av = (Avaliador) session.getAttribute("user");
-            mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
-            mv.setViewName("avaliador/restrito/revisar");
-            return mv;
+
+        if (session.getAttribute("user") != null) {
+            Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
+            mv.setViewName("redirect:index.html");
+            mv.addObject("trabalho", trabalho);
+            mv.addObject("idTrabalho", trabalho.getId());
         }
-        Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
-        mv.addObject("trabalho", trabalho);
-        mv.addObject("idTrabalho", trabalho.getId());
+
         mv.setViewName("avaliador/restrito/revisar");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setStatus("A fazer");
-        revisao.setTrabalho(trabalhosRepository.findById(id).get());
-        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
-        // revisao.setAvaliador(avaliador);
-        revisoesRepository.save(revisao);                
+        if (session.getAttribute("user") != null) {
+            Avaliador avaliador = (Avaliador) session.getAttribute("user");
+            Trabalho trabalho = trabalhosRepository.findById(id).get();
+            revisao.setStatus("A fazer");
+            revisao.setTrabalho(trabalho);
+            revisao.setAvaliador(avaliador);
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
-    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setStatus("Avaliado");
-        revisao.setTrabalho(trabalhosRepository.findById(id).get());
-        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
-        // revisao.setAvaliador(avaliador);
-        revisoesRepository.save(revisao);
+        if (session.getAttribute("user") != null) {
+            Avaliador avaliador = (Avaliador) session.getAttribute("user");
+            Trabalho trabalho = trabalhosRepository.findById(id).get();
+            revisao.setStatus("Avaliado");
+            revisao.setTrabalho(trabalho);
+            revisao.setAvaliador(avaliador);
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
@@ -207,7 +214,7 @@ public class AvaliadorController {
     public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
         ModelAndView mv = new ModelAndView();
         revisao.setDescricao("");
-        revisao.setNota(-1);        
+        revisao.setNota(-1);
         revisao.setStatus("Impedido");
         revisoesRepository.save(revisao);
         mv.setViewName("redirect:meus-trabalhos.html");
@@ -219,7 +226,7 @@ public class AvaliadorController {
     public ModelAndView minhasAreas(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.setViewName("avaliador/restrito/minhas-areas");
             return mv;
@@ -232,7 +239,7 @@ public class AvaliadorController {
     public ModelAndView minhasRevisoes(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
             mv.setViewName("avaliador/restrito/minhas-revisoes");
