@@ -211,12 +211,15 @@ public class AvaliadorController {
     }
 
     @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
-    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setDescricao("");
-        revisao.setNota(-1);
-        revisao.setStatus("Impedido");
-        revisoesRepository.save(revisao);
+        if (session.getAttribute("user") != null) {
+            revisao.setDescricao("");
+            revisao.setNota(-1);
+            revisao.setStatus("Impedido");
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
