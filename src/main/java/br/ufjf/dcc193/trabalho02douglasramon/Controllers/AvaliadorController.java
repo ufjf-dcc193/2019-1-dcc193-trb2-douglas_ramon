@@ -66,6 +66,7 @@ public class AvaliadorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliador/novo");
         mv.addObject("title", "Cadastrar Avaliador");
+        mv.addObject("areas", areaConhecimentosRepository.findAll());
         return mv;
     }
 
@@ -176,6 +177,14 @@ public class AvaliadorController {
 
         if (session.getAttribute("user") != null) {
             Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
+            Avaliador av = (Avaliador) session.getAttribute("user");
+            Revisao r = revisoesRepository.getRevisaoTrabalhoAvaliador(trabalho.getId(), av.getId());
+            if(r == null) {
+                r = new Revisao();
+                r.setNota(0);
+                r.setDescricao("");
+            }
+            mv.addObject("revisao", r);
             mv.setViewName("redirect:index.html");
             mv.addObject("trabalho", trabalho);
             mv.addObject("idTrabalho", trabalho.getId());
@@ -185,11 +194,17 @@ public class AvaliadorController {
         return mv;
     }
 
-    @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+    @PostMapping(value = { "/revisar" }, params = "revisarDepois")
+    public ModelAndView revisarDepois(@Valid Revisao revisao, BindingResult binding, @RequestParam(value = "id", required = true) Long id,
             HttpSession session) {
         ModelAndView mv = new ModelAndView();
         if (session.getAttribute("user") != null) {
+            if (binding.hasErrors()) {
+                mv.setViewName("avaliador/restrito/revisar");
+                mv.addObject("trabalho", trabalhosRepository.findById(id).get());
+                mv.addObject("title", "Revisar");
+                return mv;
+            }
             Avaliador avaliador = (Avaliador) session.getAttribute("user");
             Trabalho trabalho = trabalhosRepository.findById(id).get();
             revisao.setStatus("A fazer");
@@ -279,12 +294,8 @@ public class AvaliadorController {
         mv.setViewName("redirect:index.html");
         if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
-            av = avaliadoresRepository.getOne(av.getId());
             AreaConhecimento area = areaConhecimentosRepository.getOne(ac.getId());
             for (AreaConhecimento areaC : av.getAreaConhecimento()) {
-                System.out.println(areaC.getId());
-                System.out.println(area.getId());
-                System.out.println();
                 if (areaC.getId() == area.getId()) {
                     mv.addObject("title", "Adicionar Área");
                     mv.addObject("areas", areaConhecimentosRepository.findAll());
@@ -293,6 +304,7 @@ public class AvaliadorController {
                     return mv;
                 }
             }
+            avaliadoresRepository.save(av);
             av.getAreaConhecimento().add(area);
             avaliadoresRepository.save(av);
             mv.setViewName("redirect:minhas-areas.html");

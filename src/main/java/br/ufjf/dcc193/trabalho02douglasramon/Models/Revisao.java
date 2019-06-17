@@ -28,7 +28,6 @@ public class Revisao {
     @Max(value = 100, message = "Nota deve ser menor ou igual a 100.")
     private int nota;
     private String descricao;
-    @NotBlank(message = "É preciso um status!")
     private String status;
     @OneToOne(fetch = FetchType.EAGER)
     private Avaliador avaliador;

@@ -1,5 +1,6 @@
 package br.ufjf.dcc193.trabalho02douglasramon.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -36,6 +37,7 @@ public class Avaliador {
      *
      */
     public Avaliador() {
+        this.areaConhecimento = new ArrayList<>();
     }
 
     /**
@@ -48,6 +50,7 @@ public class Avaliador {
         this.nome = nome;
         this.email = email;
         this.codigo = codigo;
+        this.areaConhecimento = new ArrayList<>();
     }
 
     /**
