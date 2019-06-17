@@ -83,12 +83,12 @@ public class MainApplication {
 		//repositorioTrabalho.save(t2);
 		//repositorioTrabalho.save(t3);
 
-		a1 = new Avaliador("Nome 1", "Email 1", "1", listAC1);
-		a2 = new Avaliador("Nome 2", "Email 2", "2");
-		a3 = new Avaliador("Nome 3", "Email 3", "3", listAC2);
-		//repositorioAvaliador.save(a1);
-		//repositorioAvaliador.save(a2);
-		//repositorioAvaliador.save(a3);
+		a1 = new Avaliador("Nome 1", "email1@gmail.com", "1", listAC1);
+		a2 = new Avaliador("Nome 2", "email2@gmail.com", "2");
+		a3 = new Avaliador("Nome 3", "email3@gmail.com", "3", listAC2);
+		repositorioAvaliador.save(a1);
+		repositorioAvaliador.save(a2);
+		repositorioAvaliador.save(a3);
 
 		r1 = new Revisao(1, "Descrição 1", "Opção 1", t1, a1);
 		r2 = new Revisao(2, "Descrição 2", "Opção 2", t2, a2);

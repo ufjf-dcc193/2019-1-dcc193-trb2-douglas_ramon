@@ -173,51 +173,60 @@ public class AvaliadorController {
     @RequestMapping("/revisar.html")
     public ModelAndView revisar(Trabalho t, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:index.html");
+
         if (session.getAttribute("user") != null) {
-            Avaliador av = (Avaliador) session.getAttribute("user");
-            mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
-            mv.setViewName("avaliador/restrito/revisar");
-            return mv;
+            Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
+            mv.setViewName("redirect:index.html");
+            mv.addObject("trabalho", trabalho);
+            mv.addObject("idTrabalho", trabalho.getId());
         }
-        Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
-        mv.addObject("trabalho", trabalho);
-        mv.addObject("idTrabalho", trabalho.getId());
+
         mv.setViewName("avaliador/restrito/revisar");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setStatus("A fazer");
-        revisao.setTrabalho(trabalhosRepository.findById(id).get());
-        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
-        // revisao.setAvaliador(avaliador);
-        revisoesRepository.save(revisao);
+        if (session.getAttribute("user") != null) {
+            Avaliador avaliador = (Avaliador) session.getAttribute("user");
+            Trabalho trabalho = trabalhosRepository.findById(id).get();
+            revisao.setStatus("A fazer");
+            revisao.setTrabalho(trabalho);
+            revisao.setAvaliador(avaliador);
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
-    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setStatus("Avaliado");
-        revisao.setTrabalho(trabalhosRepository.findById(id).get());
-        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
-        // revisao.setAvaliador(avaliador);
-        revisoesRepository.save(revisao);
+        if (session.getAttribute("user") != null) {
+            Avaliador avaliador = (Avaliador) session.getAttribute("user");
+            Trabalho trabalho = trabalhosRepository.findById(id).get();
+            revisao.setStatus("Avaliado");
+            revisao.setTrabalho(trabalho);
+            revisao.setAvaliador(avaliador);
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
-    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao,
+            HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        revisao.setDescricao("");
-        revisao.setNota(-1);
-        revisao.setStatus("Impedido");
-        revisoesRepository.save(revisao);
+        if (session.getAttribute("user") != null) {
+            revisao.setDescricao("");
+            revisao.setNota(-1);
+            revisao.setStatus("Impedido");
+            revisoesRepository.save(revisao);
+        }
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
