@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,7 +136,7 @@ public class AvaliadorController {
     @GetMapping("/meus-dados.html")
     public ModelAndView home(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
             mv.addObject("title", "Meus dados");
@@ -146,13 +147,14 @@ public class AvaliadorController {
         return mv;
     }
 
-    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar avaliador
+    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar
+    // avaliador
     // por parametro)
     @GetMapping("/meus-trabalhos.html")
     public ModelAndView meusTrabalhos(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("title", "Meus trabalhos");
             mv.addObject("trabalhos", trabalhosRepository.findAll());
@@ -166,7 +168,7 @@ public class AvaliadorController {
     public ModelAndView revisar(Trabalho t, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
             mv.setViewName("avaliador/restrito/revisar");
@@ -186,7 +188,7 @@ public class AvaliadorController {
         revisao.setTrabalho(trabalhosRepository.findById(id).get());
         // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
         // revisao.setAvaliador(avaliador);
-        revisoesRepository.save(revisao);                
+        revisoesRepository.save(revisao);
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
@@ -207,7 +209,7 @@ public class AvaliadorController {
     public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
         ModelAndView mv = new ModelAndView();
         revisao.setDescricao("");
-        revisao.setNota(-1);        
+        revisao.setNota(-1);
         revisao.setStatus("Impedido");
         revisoesRepository.save(revisao);
         mv.setViewName("redirect:meus-trabalhos.html");
@@ -219,8 +221,11 @@ public class AvaliadorController {
     public ModelAndView minhasAreas(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
+            av = avaliadoresRepository.getOne(av.getId());
+            mv.addObject("areas", av.getAreaConhecimento());
+            mv.addObject("title", "Minhas Áreas de Conhecimento");
             mv.setViewName("avaliador/restrito/minhas-areas");
             return mv;
         }
@@ -232,10 +237,67 @@ public class AvaliadorController {
     public ModelAndView minhasRevisoes(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
-        if(session.getAttribute("user") != null) {
+        if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
             mv.setViewName("avaliador/restrito/minhas-revisoes");
+            return mv;
+        }
+        return mv;
+    }
+
+    @GetMapping("/adicionar-area.html")
+    public ModelAndView novaArea(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("redirect:index.html");
+        if (session.getAttribute("user") != null) {
+            mv.addObject("areas", areaConhecimentosRepository.findAll());
+            mv.setViewName("avaliador/restrito/adicionar-area");
+            mv.addObject("title", "Adicionar Área");
+            return mv;
+        }
+        return mv;
+    }
+
+    @PostMapping("/adicionar-area.html")
+    public ModelAndView salvarArea(AreaConhecimento ac, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("redirect:index.html");
+        if (session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
+            av = avaliadoresRepository.getOne(av.getId());
+            AreaConhecimento area = areaConhecimentosRepository.getOne(ac.getId());
+            for (AreaConhecimento areaC : av.getAreaConhecimento()) {
+                System.out.println(areaC.getId());
+                System.out.println(area.getId());
+                System.out.println();
+                if (areaC.getId() == area.getId()) {
+                    mv.addObject("title", "Adicionar Área");
+                    mv.addObject("areas", areaConhecimentosRepository.findAll());
+                    mv.addObject("error", "Você já possui esta Área de Conhecimento!");
+                    mv.setViewName("avaliador/restrito/adicionar-area");
+                    return mv;
+                }
+            }
+            av.getAreaConhecimento().add(area);
+            avaliadoresRepository.save(av);
+            mv.setViewName("redirect:minhas-areas.html");
+            return mv;
+        }
+        return mv;
+    }
+
+    @PostMapping("/remover-area-avaliador.html")
+    public ModelAndView removerArea(AreaConhecimento ac, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("redirect:index.html");
+        if (session.getAttribute("user") != null) {
+            AreaConhecimento area = areaConhecimentosRepository.getOne(ac.getId());
+            Avaliador av = (Avaliador) session.getAttribute("user");
+            av = avaliadoresRepository.getOne(av.getId());
+            av.getAreaConhecimento().remove(area);
+            avaliadoresRepository.save(av);
+            mv.setViewName("redirect:minhas-areas.html");
             return mv;
         }
         return mv;
