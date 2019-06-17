@@ -3,8 +3,6 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +139,7 @@ public class AvaliadorController {
         return mv;
     }
 
-    // ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador
+    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar avaliador
     // por parametro)
     @GetMapping("/meus-trabalhos.html")
     public ModelAndView meusTrabalhos() {
@@ -163,45 +161,41 @@ public class AvaliadorController {
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
+    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        aux.setStatus("A fazer");
-        aux.setTrabalho(trabalhosRepository.findById(id).get());
-
-        // TODO: (SESSION) Setar avaliador
-        // aux.setAvaliador(avaliador);
-
-        revisoesRepository.save(aux);                
+        revisao.setStatus("A fazer");
+        revisao.setTrabalho(trabalhosRepository.findById(id).get());
+        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
+        // revisao.setAvaliador(avaliador);
+        revisoesRepository.save(revisao);                
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
-    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
+    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        aux.setStatus("Avaliado");
-        aux.setTrabalho(trabalhosRepository.findById(id).get());
-
-        // TODO: (SESSION) Setar avaliador
-        // aux.setAvaliador(avaliador);
-
-        revisoesRepository.save(aux);
+        revisao.setStatus("Avaliado");
+        revisao.setTrabalho(trabalhosRepository.findById(id).get());
+        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
+        // revisao.setAvaliador(avaliador);
+        revisoesRepository.save(revisao);
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
-    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
+    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        aux.setDescricao("");
-        aux.setNota(-1);        
-        aux.setStatus("Impedido");
-        revisoesRepository.save(aux);
+        revisao.setDescricao("");
+        revisao.setNota(-1);        
+        revisao.setStatus("Impedido");
+        revisoesRepository.save(revisao);
         mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
-    // ToDo - Adicionar avaliador no parametro
+    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-areas.html")
     public ModelAndView minhasAreas() {
         ModelAndView mv = new ModelAndView();
@@ -209,7 +203,7 @@ public class AvaliadorController {
         return mv;
     }
 
-    // ToDo - Adicionar avaliador no parametro
+    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-revisoes.html")
     public ModelAndView minhasRevisoes() {
         ModelAndView mv = new ModelAndView();
