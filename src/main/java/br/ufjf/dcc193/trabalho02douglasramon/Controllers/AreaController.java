@@ -53,7 +53,7 @@ public class AreaController {
         mv.setViewName("area/listar");
         List<AreaConhecimento> areas = areaConhecimentos.findAll();
         mv.addObject("areas", areas);
-        mv.addObject("title", "Lista de Áreas");
+        mv.addObject("title", "Áreas de Conhecimento");
         return mv;
     }
     

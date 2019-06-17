@@ -6,9 +6,14 @@
 <body>
     <header th:include="fragments/header :: header"></header>
 
-    <div class="container">
-        <h1 th:text="${title}"></h1>
-        <form action="" th:object="${avaliador}" method="POST">
+<div class="container">
+    <br/>
+    <div class="card text-center">
+        <div class="card-header">
+            <h1 th:text="${title}"></h1>
+        </div>
+        <div class="card-body text-left">
+<form action="" th:object="${avaliador}" method="POST">
             <input type="hidden" name="id" th:field="*{id}">
             <div class="form-group">
                 <label for="nome">Nome completo</label>
@@ -29,9 +34,13 @@
                     <strong th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></strong>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </form>
+                <div class="text-right">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+                        </form>
+        </div>
     </div>
+</div>     
 
     <div th:include="fragments/footer :: footer"></div>
 </body>

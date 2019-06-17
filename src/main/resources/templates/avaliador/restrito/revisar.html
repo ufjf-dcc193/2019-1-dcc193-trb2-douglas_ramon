@@ -6,7 +6,16 @@
 <body>
     <header th:include="fragments/headerAvaliador :: header"></header>
 
-    <div class="container" th:object="${trabalho}">
+    
+
+<div class="container">
+    <br/>
+    <div class="card text-center">
+        <div class="card-header">
+            <h1 th:text="${title}"></h1>
+        </div>
+        <div class="card-body text-left">
+<div class="container" th:object="${trabalho}">
         <h1 th:text="${title}"></h1>
         <fieldset disabled>
             <input type="hidden" name="id" th:field="*{id}">
@@ -50,8 +59,9 @@
             </div>
         </form>
     </div>
-
-
+        </div>
+    </div>
+</div>     
     <div th:include="fragments/footer :: footer"></div>
 </body>
 
