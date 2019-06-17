@@ -3,6 +3,7 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,7 @@ public class AvaliadorController {
     }
 
     @PostMapping("/login.html")
-    public ModelAndView login(Avaliador av) {
+    public ModelAndView login(Avaliador av, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         List<Avaliador> avaliadores = avaliadoresRepository.findAll();
         mv.setViewName("redirect:index.html");
@@ -118,6 +119,7 @@ public class AvaliadorController {
             if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
                 mv.addObject("avaliador", avaliador);
                 mv.setViewName("redirect:meus-dados.html");
+                session.setAttribute("user", avaliador);
                 return mv;
             }
         }
@@ -125,45 +127,65 @@ public class AvaliadorController {
     }
 
     @GetMapping("/meus-dados.html")
-    public ModelAndView home(Avaliador av) {
+    public ModelAndView home(Avaliador av, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("avaliador", av);
-        mv.addObject("title", "Meus dados");
-        mv.setViewName("avaliador/restrito/meus-dados");
+        if(session.getAttribute("user") != null) {
+            mv.addObject("avaliador", av);
+            mv.addObject("title", "Meus dados");
+            mv.setViewName("avaliador/restrito/meus-dados");
+            return mv;
+        }
+        mv.setViewName("redirect:index.html");
         return mv;
     }
 
     //ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador por parametro)
     @GetMapping("/meus-trabalhos.html")
-    public ModelAndView meusTrabalhos() {
+    public ModelAndView meusTrabalhos(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("title", "Meus trabalhos");
-        mv.addObject("trabalhos", trabalhosRepository.findAll());
-        mv.setViewName("avaliador/restrito/meus-trabalhos");
+        mv.setViewName("redirect:index.html");
+        if(session.getAttribute("user") != null) {
+            mv.addObject("title", "Meus trabalhos");
+            mv.addObject("trabalhos", trabalhosRepository.findAll());
+            mv.setViewName("avaliador/restrito/meus-trabalhos");
+            return mv;
+        }
         return mv;
     }
 
     @RequestMapping("/revisar.html")
-    public ModelAndView revisar(Trabalho t) {
+    public ModelAndView revisar(Trabalho t, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
-        mv.setViewName("avaliador/restrito/revisar");
+        mv.setViewName("redirect:index.html");
+        if(session.getAttribute("user") != null) {
+            mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
+            mv.setViewName("avaliador/restrito/revisar");
+            return mv;
+        }
         return mv;
     }
 
     //ToDo - Adicionar avaliador no parametro
     @GetMapping("/minhas-areas.html")
-    public ModelAndView minhasAreas() {
+    public ModelAndView minhasAreas(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("avaliador/restrito/minhas-areas");
+        mv.setViewName("redirect:index.html");
+        if(session.getAttribute("user") != null) {
+            mv.setViewName("avaliador/restrito/minhas-areas");
+            return mv;
+        }
         return mv;
     }
 
     //ToDo - Adicionar avaliador no parametro
     @GetMapping("/minhas-revisoes.html")
-    public ModelAndView minhasRevisoes() {
+    public ModelAndView minhasRevisoes(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("avaliador/restrito/minhas-revisoes");
+        mv.setViewName("redirect:index.html");
+        if(session.getAttribute("user") != null) {
+            mv.setViewName("avaliador/restrito/minhas-revisoes");
+            return mv;
+        }
         return mv;
     }
 
