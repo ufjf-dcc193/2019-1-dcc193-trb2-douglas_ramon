@@ -7,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -20,8 +22,10 @@ public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @NotBlank(message = "É preciso uma nota!")
-    @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")
+    @NotNull(message = "É preciso uma nota!")
+    // -1 no @min pois -1 é utilizado no botão pular nas revisões do avaliador
+    @Min(value = -1, message = "Nota deve ser maior do que 0.")
+    @Max(value = 100, message = "Nota deve ser menor ou igual a 100.")
     private int nota;
     private String descricao;
     @NotBlank(message = "É preciso um status!")
@@ -52,16 +56,6 @@ public class Revisao {
     /**
      *
      * @param nota
-     * @param status
-     */
-    public Revisao(int nota, String status) {
-        this.nota = nota;
-        this.status = status;
-    }
-
-    /**
-     *
-     * @param nota
      * @param descricao
      * @param status
      * @param trabalho
@@ -72,20 +66,6 @@ public class Revisao {
         this.trabalho = trabalho;
         this.nota = nota;
         this.descricao = descricao;
-        this.status = status;
-    }
-
-    /**
-     *
-     * @param nota
-     * @param status
-     * @param trabalho
-     * @param avaliador
-     */
-    public Revisao(int nota, String status, Trabalho trabalho, Avaliador avaliador) {
-        this.avaliador = avaliador;
-        this.trabalho = trabalho;
-        this.nota = nota;
         this.status = status;
     }
 

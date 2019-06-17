@@ -13,14 +13,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.AreaConhecimento;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
+import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 /**
@@ -35,6 +39,8 @@ public class AvaliadorController {
     AreaConhecimentoRepository areaConhecimentosRepository;
     @Autowired
     TrabalhoRepository trabalhosRepository;
+    @Autowired
+    RevisaoRepository revisoesRepository;
 
     /**
      *
@@ -54,7 +60,7 @@ public class AvaliadorController {
      *
      * @return
      */
-    @GetMapping({"/avaliador-novo.html"})
+    @GetMapping({ "/avaliador-novo.html" })
     public ModelAndView novo() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliador/novo");
@@ -71,7 +77,7 @@ public class AvaliadorController {
         model.addAttribute("areaConhecimento", areaConhecimentosRepository.findAll());
         return "avaliador/formAvaliador";
     }
-    
+
     @PostMapping("/avaliador-excluir.html")
     public RedirectView remove(Avaliador avaliador) {
         avaliadoresRepository.deleteById(avaliador.getId());
@@ -83,15 +89,15 @@ public class AvaliadorController {
      * @param avaliador
      * @return
      */
-    @PostMapping({"avaliador-novo.html", "avaliador-editar.html"})
+    @PostMapping({ "avaliador-novo.html", "avaliador-editar.html" })
     public ModelAndView cadastrarAvaliador(@Valid Avaliador avaliador, BindingResult binding) {
         ModelAndView mv = new ModelAndView();
-        if(binding.hasErrors()){
+        if (binding.hasErrors()) {
             mv.setViewName("avaliador/editar");
             mv.addObject("avaliador", avaliador);
             mv.addObject("title", "Avaliador");
             return mv;
-        } 
+        }
         avaliadoresRepository.save(avaliador);
         mv.setViewName("redirect:avaliador-listar.html");
         return mv;
@@ -116,7 +122,7 @@ public class AvaliadorController {
         List<Avaliador> avaliadores = avaliadoresRepository.findAll();
         mv.setViewName("redirect:index.html");
         for (Avaliador avaliador : avaliadores) {
-            if(avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())){
+            if (avaliador.getCodigo().equals(av.getCodigo()) && avaliador.getEmail().equals(av.getEmail())) {
                 mv.addObject("avaliador", avaliador);
                 mv.setViewName("redirect:meus-dados.html");
                 session.setAttribute("user", avaliador);
@@ -140,7 +146,8 @@ public class AvaliadorController {
         return mv;
     }
 
-    //ToDo - Ajustar método para listar trabalhos do avaliador (passar avaliador por parametro)
+    // TODO: (SESSION) - Ajustar método para listar trabalhos do avaliador (passar avaliador
+    // por parametro)
     @GetMapping("/meus-trabalhos.html")
     public ModelAndView meusTrabalhos(HttpSession session) {
         ModelAndView mv = new ModelAndView();
@@ -165,10 +172,49 @@ public class AvaliadorController {
             mv.setViewName("avaliador/restrito/revisar");
             return mv;
         }
+        Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
+        mv.addObject("trabalho", trabalho);
+        mv.addObject("idTrabalho", trabalho.getId());
+        mv.setViewName("avaliador/restrito/revisar");
         return mv;
     }
 
-    //ToDo - Adicionar avaliador no parametro
+    @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
+    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        revisao.setStatus("A fazer");
+        revisao.setTrabalho(trabalhosRepository.findById(id).get());
+        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
+        // revisao.setAvaliador(avaliador);
+        revisoesRepository.save(revisao);                
+        mv.setViewName("redirect:meus-trabalhos.html");
+        return mv;
+    }
+
+    @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
+    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        revisao.setStatus("Avaliado");
+        revisao.setTrabalho(trabalhosRepository.findById(id).get());
+        // TODO: (SESSION) - Setar avaliador (descomentar linha abaixo)
+        // revisao.setAvaliador(avaliador);
+        revisoesRepository.save(revisao);
+        mv.setViewName("redirect:meus-trabalhos.html");
+        return mv;
+    }
+
+    @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
+    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        revisao.setDescricao("");
+        revisao.setNota(-1);        
+        revisao.setStatus("Impedido");
+        revisoesRepository.save(revisao);
+        mv.setViewName("redirect:meus-trabalhos.html");
+        return mv;
+    }
+
+    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-areas.html")
     public ModelAndView minhasAreas(HttpSession session) {
         ModelAndView mv = new ModelAndView();
@@ -181,7 +227,7 @@ public class AvaliadorController {
         return mv;
     }
 
-    //ToDo - Adicionar avaliador no parametro
+    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-revisoes.html")
     public ModelAndView minhasRevisoes(HttpSession session) {
         ModelAndView mv = new ModelAndView();
