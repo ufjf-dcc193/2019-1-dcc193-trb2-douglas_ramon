@@ -6,25 +6,25 @@
 <body>
     <header th:include="fragments/header :: header"></header>
 
-<div class="container">
-    <br/>
-    <div class="card text-center">
-        <div class="card-header">
-            <h1 th:text="${title}"></h1>
-        </div>
-        <div class="card-body text-left">
-            <form action="" method="POST">
-                <div class="form-group">
-                    <label for="descricao">Descrição</label>
-                    <input required type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
-                </div>
-                <div class="text-right">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-            </form>
+    <div class="container">
+        <br/>
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 th:text="${title}"></h1>
+            </div>
+            <div class="card-body text-left">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <input required type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>     
 
     <div th:include="fragments/footer :: footer"></div>
 </body>

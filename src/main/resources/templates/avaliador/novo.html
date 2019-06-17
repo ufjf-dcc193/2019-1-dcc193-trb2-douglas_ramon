@@ -6,36 +6,35 @@
 <body>
     <header th:include="fragments/header :: header"></header>
 
-<div class="container">
-    <br/>
-    <div class="card text-center">
-        <div class="card-header">
-            <h1 th:text="${title}"></h1>
-        </div>
-        <div class="card-body text-left">
-<form action="" method="POST">
-            <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input required type="text" class="form-control" id="nome" name="nome" placeholder="Nome completo">
+    <div class="container">
+        <br/>
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 th:text="${title}"></h1>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input required type="email" class="form-control" id="email" name="email"
-                        placeholder="seu@email.com">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="codigo">Senha</label>
-                    <input required type="password" name="codigo" id="codigo" class="form-control">
-                </div>
+            <div class="card-body text-left">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="nome">Nome completo</label>
+                        <input required type="text" class="form-control" id="nome" name="nome" placeholder="Nome completo">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input required type="email" class="form-control" id="email" name="email" placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="codigo">Senha</label>
+                            <input required type="password" name="codigo" id="codigo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
             </div>
-       <div class="text-right">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-        </form>
         </div>
     </div>
-</div>     
     <div th:include="fragments/footer :: footer"></div>
 </body>
 

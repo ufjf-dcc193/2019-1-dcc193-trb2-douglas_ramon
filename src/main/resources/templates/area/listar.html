@@ -7,7 +7,7 @@
     <header th:include="fragments/header :: header"></header>
 
     <div class="container">
-    <br/>
+        <br/>
         <div class="card text-center">
             <div class="card-header">
                 <h1 th:text="${title}"></h1>
@@ -24,23 +24,23 @@
                         <tr th:each="area: ${areas}" th:object=${area}>
                             <td th:text=*{descricao}></td>
                             <td>
-                            <div class="row">
-                                <form action="area-editar.html">
-                                    <input type="hidden" name="id" value="" th:value=*{id}>
-                                    <button type="submit" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                </form>
-                                <form action="area-excluir.html" method="POST">
-                                    <input type="hidden" name="id" value="" th:value=*{id}>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </form>
-                            </div>
+                                <div class="row">
+                                    <form action="area-editar.html">
+                                        <input type="hidden" name="id" value="" th:value=*{id}>
+                                        <button type="submit" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+                                    </form>
+                                    <form action="area-excluir.html" method="POST">
+                                        <input type="hidden" name="id" value="" th:value=*{id}>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>        
+    </div>
 
     <div th:include="fragments/footer :: footer"></div>
 </body>
