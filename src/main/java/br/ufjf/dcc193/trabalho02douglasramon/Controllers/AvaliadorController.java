@@ -127,9 +127,10 @@ public class AvaliadorController {
     }
 
     @GetMapping("/meus-dados.html")
-    public ModelAndView home(Avaliador av, HttpSession session) {
+    public ModelAndView home(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         if(session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
             mv.addObject("title", "Meus dados");
             mv.setViewName("avaliador/restrito/meus-dados");
@@ -145,6 +146,7 @@ public class AvaliadorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
         if(session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("title", "Meus trabalhos");
             mv.addObject("trabalhos", trabalhosRepository.findAll());
             mv.setViewName("avaliador/restrito/meus-trabalhos");
@@ -158,6 +160,7 @@ public class AvaliadorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
         if(session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
             mv.setViewName("avaliador/restrito/revisar");
             return mv;
@@ -171,6 +174,7 @@ public class AvaliadorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
         if(session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
             mv.setViewName("avaliador/restrito/minhas-areas");
             return mv;
         }
@@ -183,6 +187,8 @@ public class AvaliadorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
         if(session.getAttribute("user") != null) {
+            Avaliador av = (Avaliador) session.getAttribute("user");
+            mv.addObject("avaliador", av);
             mv.setViewName("avaliador/restrito/minhas-revisoes");
             return mv;
         }
