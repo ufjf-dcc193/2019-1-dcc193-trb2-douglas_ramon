@@ -155,35 +155,49 @@ public class AvaliadorController {
     @RequestMapping("/revisar.html")
     public ModelAndView revisar(Trabalho t) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalho", trabalhosRepository.getOne(t.getId()));
+        Trabalho trabalho = trabalhosRepository.findById(t.getId()).get();
+        mv.addObject("trabalho", trabalho);
+        mv.addObject("idTrabalho", trabalho.getId());
         mv.setViewName("avaliador/restrito/revisar");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(Revisao aux) {
+    public ModelAndView revisarDepois(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
         ModelAndView mv = new ModelAndView();
         aux.setStatus("A fazer");
-        revisoesRepository.save(aux);
-        mv.setViewName("redirect:revisar.html");
+        aux.setTrabalho(trabalhosRepository.findById(id).get());
+
+        // TODO: (SESSION) Setar avaliador
+        // aux.setAvaliador(avaliador);
+
+        revisoesRepository.save(aux);                
+        mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
-    public ModelAndView revisarAgora(Revisao aux) {
+    public ModelAndView revisarAgora(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
         ModelAndView mv = new ModelAndView();
         aux.setStatus("Avaliado");
+        aux.setTrabalho(trabalhosRepository.findById(id).get());
+
+        // TODO: (SESSION) Setar avaliador
+        // aux.setAvaliador(avaliador);
+
         revisoesRepository.save(aux);
-        mv.setViewName("trabalho/revisar.html");
+        mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
-    public ModelAndView pular(Revisao aux) {
+    public ModelAndView pular(@RequestParam(value = "id", required = true) Long id, Revisao aux) {
         ModelAndView mv = new ModelAndView();
+        aux.setDescricao("");
+        aux.setNota(-1);        
         aux.setStatus("Impedido");
         revisoesRepository.save(aux);
-        mv.setViewName("trabalho/pular");
+        mv.setViewName("redirect:meus-trabalhos.html");
         return mv;
     }
 

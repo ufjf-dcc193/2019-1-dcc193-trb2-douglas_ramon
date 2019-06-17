@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 /**
@@ -20,8 +21,7 @@ public class Revisao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @NotBlank(message = "É preciso uma nota!")
-    @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")
+    @NotNull(message = "É preciso uma nota!")
     private int nota;
     private String descricao;
     @NotBlank(message = "É preciso um status!")
@@ -52,16 +52,6 @@ public class Revisao {
     /**
      *
      * @param nota
-     * @param status
-     */
-    public Revisao(int nota, String status) {
-        this.nota = nota;
-        this.status = status;
-    }
-
-    /**
-     *
-     * @param nota
      * @param descricao
      * @param status
      * @param trabalho
@@ -72,20 +62,6 @@ public class Revisao {
         this.trabalho = trabalho;
         this.nota = nota;
         this.descricao = descricao;
-        this.status = status;
-    }
-
-    /**
-     *
-     * @param nota
-     * @param status
-     * @param trabalho
-     * @param avaliador
-     */
-    public Revisao(int nota, String status, Trabalho trabalho, Avaliador avaliador) {
-        this.avaliador = avaliador;
-        this.trabalho = trabalho;
-        this.nota = nota;
         this.status = status;
     }
 

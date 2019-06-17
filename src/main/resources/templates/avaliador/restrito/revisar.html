@@ -39,9 +39,10 @@
             </div>
             <div class="form-group">
                 <label for="descricao">Descrição</label>
-                <textarea required class="form-control" th:field="*{descricao}" id="descricao" name="descricao"
+                <textarea required class="form-control" id="descricao" name="descricao"
                     placeholder="Descrição" rows="2"></textarea>
             </div>
+             <input id="id" name="id" type="hidden" th:value="${idTrabalho}"/>
             <div class="d-flex justify-content-around row mx-md-n5">
                 <button type="submit" class="btn btn-primary" name="revisarDepois">Revisar depois</button>
                 <button type="submit" class="btn btn-success" name="revisarAgora">Revisar agora</button>
