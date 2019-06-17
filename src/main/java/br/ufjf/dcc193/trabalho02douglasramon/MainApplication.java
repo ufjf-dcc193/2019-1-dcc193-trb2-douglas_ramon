@@ -62,26 +62,26 @@ public class MainApplication {
 		ac2 = new AreaConhecimento("Descrição 2");
 		ac3 = new AreaConhecimento("Descrição 3");
 		ac4 = new AreaConhecimento("Descrição 4");
-		//repositorioAreaConhecimento.save(ac1);
-		//repositorioAreaConhecimento.save(ac2);
-		//repositorioAreaConhecimento.save(ac3);
-		//repositorioAreaConhecimento.save(ac4);
+		repositorioAreaConhecimento.save(ac1);
+		repositorioAreaConhecimento.save(ac2);
+		repositorioAreaConhecimento.save(ac3);
+		repositorioAreaConhecimento.save(ac4);
 
 		listAC1 = new ArrayList<AreaConhecimento>();
-		//listAC1.add(ac1);
-		//listAC1.add(ac2);
-		//listAC1.add(ac3);
+		listAC1.add(ac1);
+		listAC1.add(ac2);
+		listAC1.add(ac3);
 
 		listAC2 = new ArrayList<AreaConhecimento>();
-		//listAC2.add(ac1);
-		//listAC2.add(ac4);
+		listAC2.add(ac1);
+		listAC2.add(ac4);
 
 		t1 = new Trabalho("Título 1", "Descricao 1", "URL 1", ac1);
 		t2 = new Trabalho("Título 2", "Descricao 2", "URL 2", ac2);
 		t3 = new Trabalho("Título 3", "Descricao 3", "URL 3", ac3);
-		//repositorioTrabalho.save(t1);
-		//repositorioTrabalho.save(t2);
-		//repositorioTrabalho.save(t3);
+		repositorioTrabalho.save(t1);
+		repositorioTrabalho.save(t2);
+		repositorioTrabalho.save(t3);
 
 		a1 = new Avaliador("Nome 1", "email1@gmail.com", "1", listAC1);
 		a2 = new Avaliador("Nome 2", "email2@gmail.com", "2");
@@ -93,9 +93,9 @@ public class MainApplication {
 		r1 = new Revisao(1, "Descrição 1", "Opção 1", t1, a1);
 		r2 = new Revisao(2, "Descrição 2", "Opção 2", t2, a2);
 		r3 = new Revisao(3, "Descrição 3", "Opção 3", t3, a3);
-		//repositorioRevisao.save(r1);
-		//repositorioRevisao.save(r2);
-		//repositorioRevisao.save(r3);
+		repositorioRevisao.save(r1);
+		repositorioRevisao.save(r2);
+		repositorioRevisao.save(r3);
 	}
 
 }

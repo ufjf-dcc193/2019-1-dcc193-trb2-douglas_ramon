@@ -12,28 +12,28 @@
             <div class="card-header">
                 <h1 th:text="${title}"></h1>
             </div>
-            <div class="card-body">
-                <table class="table text-center">
+            <div class="card-body text-left">
+                <table class="table ">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Descrição</th>
-                            <th scope="col" colspan="2"></th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="area: ${areas}" th:object=${area}>
                             <td th:text=*{descricao}></td>
                             <td>
+                            <div class="row">
                                 <form action="area-editar.html">
                                     <input type="hidden" name="id" value="" th:value=*{id}>
-                                    <button type="submit" class="btn btn-link">Editar</button>
+                                    <button type="submit" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                                 </form>
-                            </td>
-                            <td>
                                 <form action="area-excluir.html" method="POST">
                                     <input type="hidden" name="id" value="" th:value=*{id}>
-                                    <button type="submit" class="btn btn-link">Excluir</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                                 </form>
+                            </div>
                             </td>
                         </tr>
                     </tbody>
