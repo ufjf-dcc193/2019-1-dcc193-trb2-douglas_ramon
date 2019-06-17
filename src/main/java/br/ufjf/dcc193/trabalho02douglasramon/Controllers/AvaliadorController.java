@@ -156,8 +156,14 @@ public class AvaliadorController {
         mv.setViewName("redirect:index.html");
         if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
+            av = avaliadoresRepository.getOne(av.getId());
+            List<Trabalho> trabalhos = new ArrayList<>();
+            for (AreaConhecimento area : av.getAreaConhecimento()) {
+                List<Trabalho> t = trabalhosRepository.listaTrabalhoByArea(area.getId());
+                trabalhos.addAll(t);
+            }
             mv.addObject("title", "Meus trabalhos");
-            mv.addObject("trabalhos", trabalhosRepository.findAll());
+            mv.addObject("trabalhos", trabalhos);
             mv.setViewName("avaliador/restrito/meus-trabalhos");
             return mv;
         }
@@ -216,7 +222,6 @@ public class AvaliadorController {
         return mv;
     }
 
-    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-areas.html")
     public ModelAndView minhasAreas(HttpSession session) {
         ModelAndView mv = new ModelAndView();
