@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -86,51 +87,6 @@ public class RevisaoController {
         mv.setViewName("trabalho/realizarRevisao");
         return mv;
     }
-
-    /**
-     *
-     * @param revisao
-     * @return
-     */
-    // @RequestMapping("revisarDepois.html")
-    // public ModelAndView revisarDepois(Revisao revisao) {
-    //     ModelAndView mv = new ModelAndView();
-    //     Revisao aux = revisoes.getOne(revisao.getId());
-    //     aux.setStatus("A fazer");
-    //     revisoes.save(aux);
-    //     mv.setViewName("trabalho/revisarDepois");
-    //     return mv;
-    // }
-
-    /**
-     *
-     * @param revisao
-     * @return
-     */
-    // @RequestMapping("revisarAgora.html")
-    // public ModelAndView revisarAgora(Revisao revisao) {
-    //     ModelAndView mv = new ModelAndView();
-    //     Revisao aux = revisoes.getOne(revisao.getId());
-    //     aux.setStatus("Avaliado");
-    //     revisoes.save(aux);
-    //     mv.setViewName("trabalho/revisarAgora");
-    //     return mv;
-    // }
-
-    /**
-     *
-     * @param revisao
-     * @return
-     */
-    // @RequestMapping("pular.html")
-    // public ModelAndView pular(Revisao revisao) {
-    //     ModelAndView mv = new ModelAndView();
-    //     Revisao aux = revisoes.getOne(revisao.getId());
-    //     aux.setStatus("Impedido");
-    //     revisoes.save(aux);
-    //     mv.setViewName("trabalho/pular");
-    //     return mv;
-    // }
 
     /**
      *

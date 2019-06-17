@@ -21,9 +21,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import br.ufjf.dcc193.trabalho02douglasramon.Models.AreaConhecimento;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Avaliador;
+import br.ufjf.dcc193.trabalho02douglasramon.Models.Revisao;
 import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AreaConhecimentoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.AvaliadorRepository;
+import br.ufjf.dcc193.trabalho02douglasramon.Persistence.RevisaoRepository;
 import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 
 /**
@@ -38,6 +40,8 @@ public class AvaliadorController {
     AreaConhecimentoRepository areaConhecimentosRepository;
     @Autowired
     TrabalhoRepository trabalhosRepository;
+    @Autowired
+    RevisaoRepository revisoesRepository;
 
     /**
      *
@@ -157,23 +161,29 @@ public class AvaliadorController {
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarDepois", method = RequestMethod.POST)
-    public ModelAndView revisarDepois(Trabalho t) {
+    public ModelAndView revisarDepois(Revisao aux) {
         ModelAndView mv = new ModelAndView();
-
+        aux.setStatus("A fazer");
+        revisoesRepository.save(aux);
+        mv.setViewName("redirect:revisar.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "revisarAgora", method = RequestMethod.POST)
-    public ModelAndView revisarAgora(Trabalho t) {
+    public ModelAndView revisarAgora(Revisao aux) {
         ModelAndView mv = new ModelAndView();
-
+        aux.setStatus("Avaliado");
+        revisoesRepository.save(aux);
+        mv.setViewName("trabalho/revisar.html");
         return mv;
     }
 
     @RequestMapping(value = { "/revisar" }, params = "pular", method = RequestMethod.POST)
-    public ModelAndView pular(Trabalho t) {
+    public ModelAndView pular(Revisao aux) {
         ModelAndView mv = new ModelAndView();
-
+        aux.setStatus("Impedido");
+        revisoesRepository.save(aux);
+        mv.setViewName("trabalho/pular");
         return mv;
     }
 
