@@ -252,8 +252,12 @@ public class AvaliadorController {
             HttpSession session) {
         ModelAndView mv = new ModelAndView();
         if (session.getAttribute("user") != null) {
+            Avaliador avaliador = (Avaliador) session.getAttribute("user");
+            Trabalho trabalho = trabalhosRepository.findById(id).get();
             revisao.setDescricao("");
             revisao.setNota(-1);
+            revisao.setTrabalho(trabalho);
+            revisao.setAvaliador(avaliador);
             revisao.setStatus("Impedido");
             revisoesRepository.save(revisao);
         }
