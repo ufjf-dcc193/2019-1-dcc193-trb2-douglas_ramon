@@ -5,37 +5,44 @@
 
 <body>
     <header th:include="fragments/header :: header"></header>
-    <div class="container">
-        <h1 th:text="${title}"></h1>
-    </div>
-    <div class="container">
-        <table class="table text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col" colspan="2"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="area: ${areas}" th:object=${area}>
-                    <td th:text=*{descricao}></td>
-                    <td>
-                        <form action="area-editar.html">
-                            <input type="hidden" name="id" value="" th:value=*{id}>
-                            <button type="submit" class="btn btn-link">Editar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="area-excluir.html" method="POST">
-                            <input type="hidden" name="id" value="" th:value=*{id}>
-                            <button type="submit" class="btn btn-link">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
-        <div th:include="fragments/footer :: footer"></div>
+    <div class="container">
+        <br/>
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 th:text="${title}"></h1>
+            </div>
+            <div class="card-body text-left">
+                <table class="table ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="area: ${areas}" th:object=${area}>
+                            <td th:text=*{descricao}></td>
+                            <td>
+                                <div class="row">
+                                    <form action="area-editar.html">
+                                        <input type="hidden" name="id" value="" th:value=*{id}>
+                                        <button type="submit" class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
+                                    </form>
+                                    <form action="area-excluir.html" method="POST">
+                                        <input type="hidden" name="id" value="" th:value=*{id}>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div th:include="fragments/footer :: footer"></div>
 </body>
 
 </html>

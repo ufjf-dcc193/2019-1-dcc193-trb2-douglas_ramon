@@ -23,7 +23,7 @@ public class HomeController {
         if(session.getAttribute("user") != null)
             session.setAttribute("user", null);
         mv.setViewName("index");
-        mv.addObject("title", "Home");
+        // mv.addObject("title", "Home");
         return mv;
     }
 }

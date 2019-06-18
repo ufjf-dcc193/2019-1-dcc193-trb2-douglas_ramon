@@ -7,30 +7,37 @@
     <header th:include="fragments/header :: header"></header>
 
     <div class="container">
-        <h1 th:text="${title}"></h1>
-        <form action="" th:object="${avaliador}" method="POST">
-            <input type="hidden" name="id" th:field="*{id}">
-            <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input required type="text" th:field="*{nome}" class="form-control" id="nome" name="nome"
-                    placeholder="Nome completo">
-                <strong th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></strong>
+        <br/>
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 th:text="${title}"></h1>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input required type="email" th:field="*{email}" class="form-control" id="email" name="email"
-                        placeholder="seu@email.com">
-                    <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></strong>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="codigo">Senha</label>
-                    <input type="password" th:value="*{codigo}" name="codigo" id="codigo" class="form-control">
-                    <strong th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></strong>
-                </div>
+            <div class="card-body text-left">
+                <form action="" th:object="${avaliador}" method="POST">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="nome">Nome completo</label>
+                        <input required type="text" th:field="*{nome}" class="form-control" id="nome" name="nome" placeholder="Nome completo">
+                        <strong th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></strong>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input required type="email" th:field="*{email}" class="form-control" id="email" name="email" placeholder="seu@email.com">
+                            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></strong>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="codigo">Senha</label>
+                            <input type="password" th:value="*{codigo}" name="codigo" id="codigo" class="form-control">
+                            <strong th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></strong>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </form>
+        </div>
     </div>
 
     <div th:include="fragments/footer :: footer"></div>

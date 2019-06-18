@@ -114,6 +114,7 @@ public class AvaliadorController {
     public ModelAndView editarAvaliador(Avaliador avaliador) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("avaliador", avaliadoresRepository.getOne(avaliador.getId()));
+        mv.addObject("title", "Avaliador");
         mv.setViewName("avaliador/editar");
         return mv;
     }
@@ -287,6 +288,8 @@ public class AvaliadorController {
         if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("revisoes", revisoesRepository.getTodasRevisoesAvaliador(av.getId()));
+            mv.addObject("avaliador", av);
+            mv.addObject("title", "Minhas Revisões");
             mv.setViewName("avaliador/restrito/minhas-revisoes");
             return mv;
         }
