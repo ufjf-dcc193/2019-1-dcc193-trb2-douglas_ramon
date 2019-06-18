@@ -207,6 +207,10 @@ public class AvaliadorController {
             }
             Avaliador avaliador = (Avaliador) session.getAttribute("user");
             Trabalho trabalho = trabalhosRepository.findById(id).get();
+            Revisao r = revisoesRepository.getRevisaoTrabalhoAvaliador(trabalho.getId(), avaliador.getId());
+            if(r != null) {
+                revisao.setId(r.getId());
+            }
             revisao.setStatus("A fazer");
             revisao.setTrabalho(trabalho);
             revisao.setAvaliador(avaliador);
@@ -268,14 +272,13 @@ public class AvaliadorController {
         return mv;
     }
 
-    // TODO: (SESSION) - Adicionar avaliador no parametro
     @GetMapping("/minhas-revisoes.html")
     public ModelAndView minhasRevisoes(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:index.html");
         if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
-            mv.addObject("avaliador", av);
+            mv.addObject("revisoes", revisoesRepository.getTodasRevisoesAvaliador(av.getId()));
             mv.setViewName("avaliador/restrito/minhas-revisoes");
             return mv;
         }

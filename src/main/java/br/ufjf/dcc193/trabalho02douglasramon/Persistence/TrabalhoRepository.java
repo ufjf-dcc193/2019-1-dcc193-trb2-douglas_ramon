@@ -17,4 +17,6 @@ public interface TrabalhoRepository extends JpaRepository<Trabalho, Long> {
     List<Trabalho> listaTrabalhoByArea(@Param("id") Long id);
     @Query("SELECT t FROM Trabalho t JOIN Revisao r ON t.id = r.trabalho.id WHERE t.areaConhecimento.id = :id AND r.status = 'Avaliado'")
     List<Trabalho> listaTrabalhosNaoAvaliados(@Param("id") Long id);
+    @Query("SELECT t FROM Trabalho t JOIN Revisao r ON t.id = r.trabalho.id JOIN Avaliador a ON a.id = r.avaliador.id WHERE a.id = :id_avaliador")
+    List<Trabalho> listaTrabalhosAvaliador(@Param("id_avaliador") Long id);
 }

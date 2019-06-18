@@ -16,36 +16,19 @@
                     <th scope="col">Nota</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Status</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>trabalho 1</td>
-                    <td>nota 1</td>
-                    <td>descricao 1</td>
-                    <td>status 1</td>
-                </tr>
-                <tr>
-                    <td>trabalho 2</td>
-                    <td>nota 2</td>
-                    <td>descricao 2</td>
-                    <td>status 2</td>
-                </tr>
-                <tr th:each="trabalho: ${trabalhos}" th:object=${trabalho}>
-                    <td th:text=*{titulo}></td>
+                <tr th:each="revisao: ${revisoes}" th:object=${revisao}>
+                    <td th:text=*{trabalho.titulo}></td>
+                    <td th:text=*{nota}></td>
                     <td th:text=*{descricao}></td>
-                    <td th:text=*{url}></td>
-                    <td th:text=*{areaConhecimento.descricao}></td>
+                    <td th:text=*{status}></td>
                     <td>
-                        <form action="trabalho-editar.html">
-                            <input type="hidden" name="id" value="" th:value=*{id}>
-                            <button type="submit" class="btn btn-link">Editar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="trabalho-excluir.html" method="POST">
-                            <input type="hidden" name="id" value="" th:value=*{id}>
-                            <button type="submit" class="btn btn-link">Excluir</button>
+                        <form th:action="@{/revisar.html}" th:if="*{status!='Avaliado'}">
+                            <input type="hidden" name="id" value="" th:value=*{trabalho.id}>
+                            <button type="submit" class="btn btn-link">Revisar</button>
                         </form>
                     </td>
                 </tr>
