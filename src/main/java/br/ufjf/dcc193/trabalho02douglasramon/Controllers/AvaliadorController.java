@@ -234,6 +234,10 @@ public class AvaliadorController {
             }
             Avaliador avaliador = (Avaliador) session.getAttribute("user");
             Trabalho trabalho = trabalhosRepository.findById(id).get();
+            Revisao r = revisoesRepository.getRevisaoTrabalhoAvaliador(trabalho.getId(), avaliador.getId());
+            if(r != null) {
+                revisao.setId(r.getId());
+            }
             revisao.setStatus("Avaliado");
             revisao.setTrabalho(trabalho);
             revisao.setAvaliador(avaliador);
