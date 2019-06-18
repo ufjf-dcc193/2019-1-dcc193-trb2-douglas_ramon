@@ -15,4 +15,6 @@ import br.ufjf.dcc193.trabalho02douglasramon.Models.Trabalho;
 public interface TrabalhoRepository extends JpaRepository<Trabalho, Long> {
     @Query("SELECT t FROM Trabalho t WHERE t.areaConhecimento.id = :id")
     List<Trabalho> listaTrabalhoByArea(@Param("id") Long id);
+    @Query("SELECT t FROM Trabalho t JOIN Revisao r ON t.id = r.trabalho.id WHERE t.areaConhecimento.id = :id AND r.status = 'Avaliado'")
+    List<Trabalho> listaTrabalhosNaoAvaliados(@Param("id") Long id);
 }
