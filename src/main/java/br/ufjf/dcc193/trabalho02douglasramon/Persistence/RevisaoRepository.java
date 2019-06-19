@@ -21,4 +21,6 @@ public interface RevisaoRepository extends JpaRepository<Revisao, Long> {
 
     @Query("SELECT r FROM Revisao r WHERE r.avaliador.id = :id")
     List<Revisao> getTodasRevisoesAvaliador(@Param("id") Long id);
+
+    List<Revisao> findAllByOrderByAvaliadorAsc();
 }

@@ -7,35 +7,42 @@
     <header th:include="fragments/headerAvaliador :: header"></header>
 
     <div class="container">
-        <table class="table text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Trabalho</th>
-                    <th scope="col">Nota</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Status</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="revisao: ${revisoes}" th:object=${revisao}>
-                    <td th:text=*{trabalho.titulo}></td>
-                    <td th:text=*{nota}></td>
-                    <td th:text=*{descricao}></td>
-                    <td th:text=*{status}></td>
-                    <td>
-                        <form th:action="@{/revisar.html}" th:if="*{status!='Avaliado'}">
-                            <div th:if="*{status!='Impedido'}">
-                                <input type="hidden" name="id" value="" th:value=*{trabalho.id}>
-                                <button type="submit" class="btn btn-link">Revisar</button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <br />
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 th:text="${title}"></h1>
+            </div>
+            <div class="card-body text-left">
+                <table class="table text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Trabalho</th>
+                            <th scope="col">Nota</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="revisao: ${revisoes}" th:object=${revisao}>
+                            <td th:text=*{trabalho.titulo}></td>
+                            <td th:text=*{nota}></td>
+                            <td th:text=*{descricao}></td>
+                            <td th:text=*{status}></td>
+                            <td>
+                                <form th:action="@{/revisar.html}" th:if="*{status=='A fazer'}">
+                                    <input type="hidden" name="id" value="" th:value=*{trabalho.id}>
+                                    <button type="submit" class="btn btn-link">Revisar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        <div th:include="fragments/footer :: footer"></div>
+    <div th:include="fragments/footer :: footer"></div>
 </body>
 
 </html>

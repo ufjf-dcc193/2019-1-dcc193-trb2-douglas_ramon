@@ -3,6 +3,8 @@ package br.ufjf.dcc193.trabalho02douglasramon.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,21 +22,48 @@ import br.ufjf.dcc193.trabalho02douglasramon.Persistence.TrabalhoRepository;
 @Controller
 public class RevisaoController {
     @Autowired
-    RevisaoRepository revisoes;
+    RevisaoRepository revisoesRepository;
     @Autowired
-    AvaliadorRepository avaliadores;
+    AvaliadorRepository avaliadoresRepository;
     @Autowired
-    TrabalhoRepository trabalhos;
+    TrabalhoRepository trabalhosRepository;
 
     /**
      *
      * @param model
      * @return
      */
-    @RequestMapping("revisao.html")
-    public String revisao(Model model) {
-        model.addAttribute("revisao", revisoes.findAll());
-        return "revisao/revisao";
+    @GetMapping("revisao-listar.html")
+    public ModelAndView revisao() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("revisoes", revisoesRepository.findAllByOrderByAvaliadorAsc());
+        mv.addObject("title", "Lista de Revisões");
+        mv.addObject("editar", "false");
+        mv.setViewName("revisoes/listar");
+        return mv;
+    }
+
+    @PostMapping("revisao-listar.html")
+    public ModelAndView revisao(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        Revisao r = revisoesRepository.getOne(revisao.getId());
+        mv.addObject("revisoes", revisoesRepository.findAllByOrderByAvaliadorAsc());
+        mv.addObject("id_revisar", r.getId());
+        mv.addObject("title", "Lista de Revisões");
+        mv.addObject("editar", "true");
+        mv.setViewName("revisoes/listar");
+        return mv;
+    }
+
+    @PostMapping("salvar-revisao-lista.html")
+    public ModelAndView salvar(Revisao revisao) {
+        ModelAndView mv = new ModelAndView();
+        Revisao aux = revisoesRepository.getOne(revisao.getId());
+        Revisao r = new Revisao(aux.getNota(), aux.getDescricao(), revisao.getStatus(), aux.getTrabalho(), aux.getAvaliador());
+        r.setId(aux.getId());
+        revisoesRepository.save(r);
+        mv.setViewName("redirect:revisao-listar.html");
+        return mv;
     }
 
     /**
@@ -44,8 +73,8 @@ public class RevisaoController {
      */
     @RequestMapping("formRevisao.html")
     public String formRevisao(Model model) {
-        model.addAttribute("avaliador", avaliadores.findAll());
-        model.addAttribute("trabalho", trabalhos.findAll());
+        model.addAttribute("avaliador", avaliadoresRepository.findAll());
+        model.addAttribute("trabalho", trabalhosRepository.findAll());
         return "revisao/formRevisao";
     }
 
@@ -56,7 +85,7 @@ public class RevisaoController {
      */
     @RequestMapping("cadastrarRevisao.html")
     public RedirectView cadastrarRevisao(Revisao revisao) {
-        revisoes.save(revisao);
+        revisoesRepository.save(revisao);
         return new RedirectView("revisao.html");
     }
 
@@ -68,9 +97,9 @@ public class RevisaoController {
     @RequestMapping("editarRevisao.html")
     public ModelAndView editarRevisao(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("revisao", revisoes.getOne(revisao.getId()));
-        mv.addObject("avaliador", avaliadores.findAll());
-        mv.addObject("trabalho", trabalhos.findAll());
+        mv.addObject("revisao", revisoesRepository.getOne(revisao.getId()));
+        mv.addObject("avaliador", avaliadoresRepository.findAll());
+        mv.addObject("trabalho", trabalhosRepository.findAll());
         mv.setViewName("revisao/editarRevisao");
         return mv;
     }
@@ -83,7 +112,7 @@ public class RevisaoController {
     @RequestMapping("realizarRevisao.html")
     public ModelAndView realizarRevisao(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("trabalho", revisoes.getOne(revisao.getTrabalho().getId()));
+        mv.addObject("trabalho", revisoesRepository.getOne(revisao.getTrabalho().getId()));
         mv.setViewName("trabalho/realizarRevisao");
         return mv;
     }
@@ -97,7 +126,7 @@ public class RevisaoController {
     public ModelAndView listarRevisoesAvaliador(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
         if (revisao.getStatus() == "Avaliado") {
-            mv.addObject("revisao", revisoes.getOne(revisao.getId()));
+            mv.addObject("revisao", revisoesRepository.getOne(revisao.getId()));
         }
         mv.setViewName("trabalho/listarRevisoesAvaliador");
         return mv;
@@ -111,9 +140,9 @@ public class RevisaoController {
     @RequestMapping("alterarStatusRevisoesAvaliador.html")
     public ModelAndView alterarStatusRevisoesAvaliador(Revisao revisao) {
         ModelAndView mv = new ModelAndView();
-        Revisao aux = revisoes.getOne(revisao.getId());
+        Revisao aux = revisoesRepository.getOne(revisao.getId());
         aux.setStatus(revisao.getStatus());
-        revisoes.save(aux);
+        revisoesRepository.save(aux);
         mv.setViewName("trabalho/alterarStatusRevisoesAvaliador");
         return mv;
     }
