@@ -140,7 +140,7 @@ public class AvaliadorController {
         if (session.getAttribute("user") != null) {
             Avaliador av = (Avaliador) session.getAttribute("user");
             mv.addObject("avaliador", av);
-            mv.addObject("title", "Meus dados");
+            mv.addObject("title", "Meus Dados");
             mv.setViewName("avaliador/restrito/meus-dados");
             return mv;
         }
@@ -162,7 +162,7 @@ public class AvaliadorController {
                 List<Trabalho> tNaoAvaliado = trabalhosRepository.listaTrabalhosNaoAvaliados(area.getId());
                 trabalhos.removeAll(tNaoAvaliado);
             }
-            mv.addObject("title", "Meus trabalhos pendentes");
+            mv.addObject("title", "Meus Trabalhos Pendentes");
             mv.addObject("trabalhos", trabalhos);
             mv.setViewName("avaliador/restrito/meus-trabalhos");
             return mv;
